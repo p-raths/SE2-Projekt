@@ -2,6 +2,9 @@
 *.apk
 *.ap_
 
+# Android Studio
+.idea
+
 # Files for the Dalvik VM
 *.dex
 
@@ -24,3 +27,18 @@ proguard/
 
 # Log Files
 *.log
+
+# OSX Files
+.DS_Store
+
+#Eclipse
+/target
+/.settings
+.project
+/.metadata
+.checkstyle
+
+# Package Files #
+*.jar
+*.war
+*.ear
