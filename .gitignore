@@ -2,6 +2,9 @@
 *.apk
 *.ap_
 
+# Android Studio
+.idea
+
 # Files for the Dalvik VM
 *.dex
 
@@ -24,15 +27,20 @@ proguard/
 
 # Log Files
 *.log
-/.idea/.name
-/.idea/compiler.xml
-/.idea/copyright/profiles_settings.xml
-/.idea/encodings.xml
-/.idea/libraries/gradle_wrapper.xml
-/.idea/misc.xml
-/.idea/modules.xml
-/.idea/scopes/scope_settings.xml
-/.idea/vcs.xml
-/.idea/workspace.xml
+
+# OSX Files
+.DS_Store
+
+#Eclipse
+/target
+/.settings
+.project
+/.metadata
+.checkstyle
+
+# Package Files #
+*.jar
+*.war
+*.ear
 /MyApplication/app/src/androidTest/androidTest.iml
 /MyApplication/app/src/main/main.iml
