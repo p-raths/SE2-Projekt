@@ -38,6 +38,10 @@ proguard/
 /.metadata
 .checkstyle
 
+# Android Studio
+.idea
+.iml
+
 # Package Files #
 *.jar
 *.war

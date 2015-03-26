@@ -1,9 +1,15 @@
 package ch.hsr.se2.kartenverwaltung;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+
+import com.google.inject.Inject;
+
+import roboguice.inject.InjectView;
 
 
 public class MainActivity extends ActionBarActivity {
