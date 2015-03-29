@@ -17,7 +17,6 @@ public class OverviewActivity extends Activity {
         super.onCreate(savedInstanceState);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_overview, menu);
@@ -38,14 +37,11 @@ public class OverviewActivity extends Activity {
         }
     }
 
-
     private void doLogout() {
         startActivity(new Intent(this, LoginActivity.class));
     }
 
-
     private void startAddActivity() {
         startActivity(new Intent(this, AddCardActivity.class));
-
     }
 }
