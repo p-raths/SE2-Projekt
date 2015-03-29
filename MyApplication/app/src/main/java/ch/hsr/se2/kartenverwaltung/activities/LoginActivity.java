@@ -2,13 +2,13 @@ package ch.hsr.se2.kartenverwaltung.activities;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.view.View;
 
 import ch.hsr.se2.kartenverwaltung.R;
-import roboguice.RoboGuice;
-import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
@@ -31,6 +31,16 @@ public class LoginActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    public void startOverviewActivity(View view) {
+        Intent intent = new Intent(this, OverviewActivity.class);
+        startActivity(intent);
+    }
+
+    /*
+    Todo: When loginButton pressed, validate user input. Add a listener to loginButton
+    and implement it in a private class where the validator is called.
+    */
 
 
 }

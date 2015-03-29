@@ -7,4 +7,16 @@
     <string name="password">Password</string>
     <string name="login_button">Login</string>
     <string name="register_button">Registrieren</string>
+    <string name="title_activity_add_card">AddCardActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="card_name">Karte Name</string>
+    <string name="card_description">Beschreibung</string>
+    <string name="expiration_date">Ablaufdatum</string>
+    <string name="newCard_text">Neue Karte:</string>
+    <string name="cancel_button">Abbrechen</string>
+    <string name="save_button">Speichern</string>
+    <string name="title_activity_overview">OverviewActivity</string>
+    <string name="logout">Logout</string>
+    <string name="action_addCard">Neue Karte</string>
 </resources>

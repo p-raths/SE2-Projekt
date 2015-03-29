@@ -16,7 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".activities.AddCardActivity"
+            android:label="@string/title_activity_add_card" >
+        </activity>
+        <activity
+            android:name=".activities.OverviewActivity"
+            android:label="@string/title_activity_overview" >
+        </activity>
     </application>
 
 </manifest>
