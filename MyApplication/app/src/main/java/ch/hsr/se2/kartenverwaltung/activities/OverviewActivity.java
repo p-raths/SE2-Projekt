@@ -1,8 +1,8 @@
 package ch.hsr.se2.kartenverwaltung.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -10,7 +10,7 @@ import ch.hsr.se2.kartenverwaltung.R;
 import roboguice.inject.ContentView;
 
 @ContentView(R.layout.activity_overview)
-public class OverviewActivity extends Activity {
+public class OverviewActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
