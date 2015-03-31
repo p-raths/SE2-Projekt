@@ -1,4 +1,6 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    android:id="@+id/scrollView_login"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -8,33 +10,32 @@
     android:layout_alignParentRight="true"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
-    tools:context="ch.hsr.se2.kartenverwaltung.activities.LoginActivity"
-    android:id="@+id/scrollView_login">
+    tools:context="ch.hsr.se2.kartenverwaltung.activities.LoginActivity">
 
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/login_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
             android:layout_marginStart="2dp"
             android:layout_marginTop="5dp"
             android:text="@string/login_label"
-            android:id="@+id/login_label"
-            android:textStyle="italic" />
+            android:textStyle="italic"/>
 
         <EditText
+            android:id="@+id/email_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/email_editText"
-            android:hint="@string/email" />
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"/>
 
         <EditText
             android:id="@+id/password_editText"
@@ -42,8 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:ems="10"
-            android:inputType="textPassword"
-            android:hint="@string/password" />
+            android:hint="@string/password"
+            android:inputType="textPassword"/>
 
 
         <Button
@@ -56,8 +57,8 @@
             android:layout_marginRight="2dp"
             android:layout_marginStart="2dp"
             android:layout_marginTop="5dp"
-            android:text="@string/login_button"
-            android:onClick="startOverviewActivity" />
+            android:onClick="startOverviewActivity"
+            android:text="@string/login_button"/>
 
 
         <Button
@@ -70,7 +71,7 @@
             android:layout_marginRight="2dp"
             android:layout_marginStart="2dp"
             android:layout_marginTop="5dp"
-            android:text="@string/register_button" />
+            android:text="@string/register_button"/>
 
     </LinearLayout>
 </ScrollView>

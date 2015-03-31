@@ -1,0 +1,12 @@
+<fragment
+    android:id="@+id/karte_list"
+    android:name="ch.hsr.se2.kartenverwaltung.activities.CardListFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    tools:context="ch.hsr.se2.kartenverwaltung.activities.CardListActivity"
+    tools:layout="@android:layout/list_content"
+    />

@@ -24,6 +24,22 @@
             android:name=".activities.OverviewActivity"
             android:label="@string/title_activity_overview" >
         </activity>
+        <activity
+            android:name=".activities.CardViewActivity"
+            android:label="@string/title_activity_card_list_item" >
+        </activity>
+        <activity
+            android:name=".activities.CardListActivity"
+            android:label="@string/title_karte_list" >
+        </activity>
+        <activity
+            android:name=".activities.CardDetailActivity"
+            android:label="@string/title_karte_detail"
+            android:parentActivityName=".activities.CardListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.CardListActivity" />
+        </activity>
     </application>
 
 </manifest>

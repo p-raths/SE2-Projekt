@@ -34,6 +34,7 @@ public class LoginActivity extends CommonActivity {
 
     public void startOverviewActivity(View view) {
         Intent intent = new Intent(this, OverviewActivity.class);
+        //Intent intent = new Intent(this, CardListActivity.class);
         startActivity(intent);
     }
 

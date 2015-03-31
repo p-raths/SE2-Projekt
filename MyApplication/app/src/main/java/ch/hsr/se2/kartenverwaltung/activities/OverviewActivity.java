@@ -12,36 +12,37 @@ import roboguice.inject.ContentView;
 @ContentView(R.layout.activity_overview)
 public class OverviewActivity extends ActionBarActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_overview, menu);
-        return true;
-    }
+		super.onCreate(savedInstanceState);
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_addCard:
-                startAddActivity();
-                return true;
-            case R.id.action_logout:
-                doLogout();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_overview, menu);
+		return true;
+	}
 
-    private void doLogout() {
-        startActivity(new Intent(this, LoginActivity.class));
-    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_addCard:
+			startAddActivity();
+			return true;
+		case R.id.action_logout:
+			doLogout();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 
-    private void startAddActivity() {
-        startActivity(new Intent(this, AddCardActivity.class));
-    }
+	private void doLogout() {
+		startActivity(new Intent(this, LoginActivity.class));
+	}
+
+	private void startAddActivity() {
+		startActivity(new Intent(this, AddCardActivity.class));
+	}
 }

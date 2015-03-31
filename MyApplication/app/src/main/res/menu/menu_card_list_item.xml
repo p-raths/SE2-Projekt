@@ -1,8 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context="ch.hsr.se2.kartenverwaltung.activities.OverviewActivity">
-
+      tools:context="ch.hsr.se2.kartenverwaltung.activities.CardViewActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
@@ -10,9 +9,10 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/action_addCard"
+        android:id="@+id/action_shareCard"
         android:orderInCategory="1"
-        android:title="@string/action_addCard"
+        android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
+        android:title="@string/action_shareCard"
         app:showAsAction="ifRoom|withText"/>
 
     <item
@@ -22,11 +22,18 @@
         android:title="@string/action_editCard"
         app:showAsAction="ifRoom|withText"
         />
+
+    <item
+        android:id="@+id/action_deleteCard"
+        android:icon="@drawable/ic_action_delete"
+        android:orderInCategory="2"
+        android:title="@string/action_deleteCard"
+        app:showAsAction="ifRoom|withText"
+        />
     <item
         android:id="@+id/action_logout"
         android:icon="@drawable/ic_action_logout"
         android:orderInCategory="3"
         android:title="@string/logout"
         app:showAsAction="ifRoom|withText"/>
-
 </menu>
