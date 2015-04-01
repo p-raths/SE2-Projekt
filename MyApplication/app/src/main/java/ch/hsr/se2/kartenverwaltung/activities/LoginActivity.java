@@ -1,7 +1,5 @@
 package ch.hsr.se2.kartenverwaltung.activities;
 
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -15,33 +13,30 @@ import roboguice.inject.InjectView;
 @ContentView(R.layout.activity_login)
 public class LoginActivity extends CommonActivity {
 
-    @InjectView(R.id.email_editText)
-    EditText emailFieldText;
+	@InjectView(R.id.email_editText)
+	EditText emailFieldText;
 
-    @InjectView(R.id.password_editText)
-    EditText passwordField;
+	@InjectView(R.id.password_editText)
+	EditText passwordField;
 
-    @InjectView(R.id.login_button)
-    private Button loginButton;
+	@InjectView(R.id.login_button)
+	private Button loginButton;
 
-    @InjectView(R.id.register_button)
-    private Button registerButton;
+	@InjectView(R.id.register_button)
+	private Button registerButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
 
-    public void startOverviewActivity(View view) {
-        Intent intent = new Intent(this, OverviewActivity.class);
-        //Intent intent = new Intent(this, CardListActivity.class);
-        startActivity(intent);
-    }
+	public void startOverviewActivity(View view) {
+		Intent intent = new Intent(this, OverviewActivity.class);
+		// Intent intent = new Intent(this, CardListActivity.class);
+		startActivity(intent);
+	}
 
-    /*
-    Todo: When loginButton pressed, validate user input. Add a listener to loginButton
-    and implement it in a private class where the validator is called.
-    */
-
+	// Todo: When loginButton pressed, validate user input. Add a listener to loginButton
+	// and implement it in a private class where the validator is called.
 
 }

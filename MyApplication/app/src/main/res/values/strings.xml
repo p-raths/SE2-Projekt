@@ -26,5 +26,8 @@
     <string name="karte">Karte</string>
     <string name="title_karte_list">Karten</string>
     <string name="title_karte_detail">Karte Detail</string>
+    <string name="title_activity_card_detail">CardDetailActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>
