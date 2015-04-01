@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'org.roboguice:roboguice:3.0.1'
     compile 'com.android.support:support-v4:22.0.0'
+    compile files('libs/volley.jar')
 }
