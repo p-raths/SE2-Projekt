@@ -8,5 +8,13 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/user/Workspace_j8/RESTfulProject/jaxrs-ri-2.17.zip"/>
+	<classpathentry kind="lib" path="C:/Users/user/Workspace_j8/RESTfulProject/WebContent/WEB-INF/lib/jersey-core-1.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Workspace_j8/RESTfulProject/WebContent/WEB-INF/lib/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Workspace_j8/RESTfulProject/WebContent/WEB-INF/lib/gson-2.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Workspace_j8/RESTfulProject/WebContent/WEB-INF/lib/jersey-client-1.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Workspace_j8/RESTfulProject/WebContent/WEB-INF/lib/jersey-server-1.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Workspace_j8/RESTfulProject/WebContent/WEB-INF/lib/jsr311-api-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Workspace_j8/RESTfulProject/WebContent/WEB-INF/lib/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

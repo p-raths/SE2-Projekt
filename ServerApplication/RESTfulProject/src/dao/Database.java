@@ -9,20 +9,20 @@ public class Database {
 	public Connection Get_Connection() throws Exception
 	{
 		try
-		{
-		String connectionURL = "jdbc:mysql://mysql11j10.db.internal:3306/trickra_se2projekt";
-		Connection connection = null;
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		connection = DriverManager.getConnection(connectionURL, "trickra_se2", "bPnYVNLa");
-	    return connection;
+		{		
+			String connectionURL = "jdbc:mysql://127.0.0.1:3306/Kartenverwaltung";
+			Connection connection = null;
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			connection = DriverManager.getConnection(connectionURL, "root", "root");
+			return connection;
 		}
 		catch (SQLException e)
 		{
-		throw e;	
+			throw e;	
 		}
 		catch (Exception e)
 		{
-		throw e;	
+			throw e;	
 		}
 	}
 

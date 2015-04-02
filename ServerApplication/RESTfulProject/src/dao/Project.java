@@ -5,28 +5,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import dto.FeedObjects;
+import dto.CardType;
 
 
 public class Project {
 	
 	
-	public ArrayList<FeedObjects> GetFeeds(Connection connection) throws Exception
+	public ArrayList<CardType> GetFeeds(Connection connection) throws Exception
 	{
-		ArrayList<FeedObjects> feedData = new ArrayList<FeedObjects>();
+		ArrayList<CardType> feedData = new ArrayList<CardType>();
 		try
-		{
-			//String uname = request.getParameter("uname");
-			PreparedStatement ps = connection.prepareStatement("SELECT CatName,CarDescription,CatDefaultAttributes FROM CardType ORDER BY CatId DESC");
-			//ps.setString(1,uname);
+		{			
+			PreparedStatement ps = connection.prepareStatement("SELECT CatName,CatDescription,CatDefaultAttributes FROM TCardType ORDER BY CatId DESC");		
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 			{
-				FeedObjects feedObject = new FeedObjects();
-				feedObject.setTitle(rs.getString("CatName"));
-				feedObject.setDescription(rs.getString("CatDescription"));
-				feedObject.setUrl(rs.getString("CatDefaultAttributes"));
-				feedData.add(feedObject);
+				CardType cardType = new CardType();
+				cardType.setName(rs.getString("CatName"));
+				cardType.setDescription(rs.getString("CatDescription"));
+				cardType.setDefaultAttributes(rs.getString("CatDefaultAttributes"));
+				feedData.add(cardType);
 			}
 			return feedData;
 		}
@@ -36,4 +34,31 @@ public class Project {
 		}
 	}
 	
+	public String PostFeed(CardType cardType, Connection connection) throws Exception
+	{
+		try
+		{
+			String action;
+			PreparedStatement ps;
+			if (cardType.getId() == -1)
+			{
+				ps = connection.prepareStatement("INSERT INTO TCardType VALUES(NULL, ?, ?, ?)");
+				action = "inserted";
+			}
+			else
+			{
+				ps = connection.prepareStatement("UPDATE TCardType SET CatName=?, CatDescription=?, CatDefaultAttributes=? WHERE CatId=?");
+				ps.setInt(4, cardType.getId());
+				action = "updated";
+			}
+			ps.setString(1, cardType.getName());
+			ps.setString(2, cardType.getDescription());
+			ps.setString(3, cardType.getDefaultAttributes());
+			return "" + ps.executeUpdate() + " rows have been successfully " + action + "!";			
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}	
 }
