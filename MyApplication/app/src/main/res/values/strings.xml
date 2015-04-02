@@ -29,5 +29,6 @@
     <string name="title_activity_card_detail">CardDetailActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="card_saved">Karte gespeichert</string>
 
 </resources>

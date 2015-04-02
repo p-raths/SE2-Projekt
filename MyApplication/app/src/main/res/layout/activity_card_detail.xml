@@ -1,20 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="?android:attr/listPreferredItemHeight"
-              android:background="?android:attr/activatedBackgroundIndicator"
-              android:orientation="horizontal"
-              android:padding="6dip"
-              tools:context="ch.hsr.se2.kartenverwaltung.activities.CardDetailActivity"
+<LinearLayout
+    android:id="@+id/layout_cardDetail"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:background="?android:attr/activatedBackgroundIndicator"
+    android:orientation="horizontal"
+    android:padding="6dip"
+    tools:context="ch.hsr.se2.kartenverwaltung.activities.CardDetailActivity"
     >
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView_cardDetail"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_marginEnd="6dip"
         android:layout_marginRight="6dip"
-        android:src="@drawable/abc_ic_menu_paste_mtrl_am_alpha"
+        android:cropToPadding="true"
+        android:src="@drawable/ic_creditcard"
         />
 
     <TextView
@@ -33,11 +36,11 @@
         android:id="@+id/additional_line_cardItem_editText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|end"
+        android:layout_gravity="center|start"
         android:layout_marginEnd="2dp"
         android:layout_marginRight="2dp"
         android:ellipsize="marquee"
-        android:gravity="end"
+        android:gravity="start"
         android:singleLine="true"
         android:text="@string/expiration_date"
         android:textSize="13sp"
