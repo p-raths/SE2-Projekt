@@ -14,7 +14,7 @@ import ch.hsr.se2.kartenverwaltung.R;
 import ch.hsr.se2.kartenverwaltung.domain.Card;
 
 /**
- * Created by roberto on 01.04.15.
+ * Created by roberto on 01.04.15. Necessary in order to show the cards items in the {@link ch.hsr.se2.kartenverwaltung.activities.OverviewActivity} class.
  */
 public class CardAdapter extends ArrayAdapter<Card> {
 
