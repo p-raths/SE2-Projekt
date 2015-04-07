@@ -87,6 +87,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="roboguice-3.0.1" level="project" />
+    <orderEntry type="library" exported="" name="volley" level="project" />
     <orderEntry type="library" exported="" name="commons-lang-2.4" level="project" />
     <orderEntry type="library" exported="" name="roboblender-3.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.0.0" level="project" />

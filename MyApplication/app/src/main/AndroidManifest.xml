@@ -2,12 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ch.hsr.se2.kartenverwaltung" >
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <permission android:name="com.example.project.INTERNET" />
+        android:theme="@style/AppTheme"
+        android:name=".services.JSONServiceHandler">
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name" >
@@ -31,6 +33,10 @@
         </activity>
         <activity
             android:name=".activities.CardDetailActivity"
+            android:label="@string/title_activity_card_detail" >
+        </activity>
+        <activity
+            android:name=".activities.VolleyTestActivity"
             android:label="@string/title_activity_card_detail" >
         </activity>
     </application>
