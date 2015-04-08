@@ -71,7 +71,7 @@ public class FeedService {
 	@POST
 	@Path("/PostFeed")
 	@Produces("text/plain")
-	public Response seed(@QueryParam("id") int id, 
+	public Response seed(@QueryParam("id") String id, 
 			@QueryParam("name") String name, 
 			@QueryParam("description") String description, 
 			@QueryParam("defaultattributes") String defaultAttributes)
@@ -80,7 +80,7 @@ public class FeedService {
 		try 
 		{
 			System.out.println("Input: id=" + id + "; name=" + name + "; desc=" + description + "; attr=" + defaultAttributes);
-			CardType seedData = new CardType(id, name, description, defaultAttributes);
+			CardType seedData = new CardType(Integer.parseInt(id), name, description, defaultAttributes);
 			ProjectManager projectManager= new ProjectManager();
 			seedResult = projectManager.PostFeed(seedData);
 
