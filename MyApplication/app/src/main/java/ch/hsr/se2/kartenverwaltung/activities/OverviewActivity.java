@@ -61,7 +61,9 @@ public class OverviewActivity extends ActionBarActivity {
 		pDialog = new ProgressDialog(this);
 		pDialog.setMessage("Please wait...");
 		pDialog.setCancelable(false);
+
 		makeJsonArrayRequest();
+
 		cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, cardList);
 		cardsListView.setAdapter(cardAdapter);
 		cardsListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -111,9 +113,11 @@ public class OverviewActivity extends ActionBarActivity {
 		List<Card> list = getSelectedCards();
 		Intent intent = new Intent(this, CardViewActivity.class);
 		for (Card card : list) {
-			intent.putExtra("card_name", card.getCardName());
+            intent.putExtra("card_id", card.getCardId());
+            intent.putExtra("card_name", card.getCardName());
 			intent.putExtra("card_description", card.getDescription());
-			System.out.println(card.getCardName());
+            System.out.println(card.getCardId());
+            System.out.println(card.getCardName());
 			System.out.println(card.getDescription());
 			startActivity(intent);
 		}
@@ -150,10 +154,10 @@ public class OverviewActivity extends ActionBarActivity {
 
 						JSONObject card = (JSONObject) response.get(i);
 
+                        int id = card.getInt("id");
 						String name = card.getString("name");
 						String description = card.getString("description");
-
-						cardList.add(new Card(name, description));
+						cardList.add(new Card(id, name, description));
 
 					}
 
