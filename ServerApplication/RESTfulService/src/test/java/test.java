@@ -1,77 +1,96 @@
-import javax.ws.rs.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.net.httpserver.HttpServer;
 
 @Path("/serverTest")
 public class test {
 
-    private static final String LOCALHOST = "http://localhost:8080/";
+	private static final String LOCALHOST = "http://localhost:8000/test/";
 
-    private static HttpServer server;
+	private static HttpServer server;
 
-    @GET
-    @Produces("text/plain")
-    public String testSystem(){
-        return "Hello. This is a test";
-    }
+	@GET
+	@Produces("text/plain")
+	public String testSystem() {
+		return "Hello. This is a test";
+	}
 
-    @BeforeClass
-    public static void setUp() throws Exception{
-        System.out.println("Creating server");
-        server = HttpServerFactory.create(LOCALHOST);
+	@BeforeClass
+	public static void setUp() throws Exception {
+		// Our server start
 
-        System.out.println("Starting server");
-        server.start();
+		System.out.println("Creating server");
+		server = HttpServerFactory.create(LOCALHOST);
+	
+		System.out.println("Starting server");
+		server.start();
 
-        System.out.println("HTTP server started");
-        System.out.println("Running tests...");
+		System.out.println("HTTP server started");
+		System.out.println("Running tests...");
+		
+	}
 
-        testResourceAtUrl(new URL(LOCALHOST + "hellotest"));
-    }
+	// Destroy the server
+	@AfterClass
+	public static void tearDown() throws IOException {
+		System.out.println("Stopping server");
+		server.stop(0);
+		System.out.println("Server stopped");
+	}
 
-    private static String testResourceAtUrl(URL url) throws Exception {
+	private static String testResourceAtUrl(URL url) throws Exception {
 
-        try {
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		try {
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            connection.setRequestMethod("GET");
-            connection.connect();
+			connection.setRequestMethod("GET");
+			connection.connect();
 
-            InputStream inputStream = connection.getInputStream();
+			InputStream inputStream = connection.getInputStream();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String firstLineOfText = reader.readLine();
-            System.out.println("Read: " + firstLineOfText);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+			String firstLineOfText = reader.readLine();
+			System.out.println("Read: " + firstLineOfText);
 
-            System.out.println("System was initialized correctly. About to run actual tests...");
+			System.out.println("System was initialized correctly. About to run actual tests...");
 
-            connection.disconnect();
- 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+			connection.disconnect();
 
-        throw new Exception("could not establish connection to " + url.toExternalForm());
-    }
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-    @Test
-    public void testMyMethod() throws Exception {
-        String activationText = testResourceAtUrl(new URL(LOCALHOST + "restfulproject/GetFeeds"));
+		throw new Exception("could not establish connection to " + url.toExternalForm());
+	}
 
-        assertEquals('{"id":0,"name":"CardTypeTest","description":"CardTypeDescriptionTest","defaultAttributes":"DefaultAttributes"}]",' activationText);
+	@Test
+	public void testMyMethod() throws Exception {
+		String activationText = testResourceAtUrl(new URL(LOCALHOST + "restfulproject/GetFeeds"));
+		String testString = "[{\"id\":0,\"name\":\"CardTypeTest\",\"description\":\"CardTypeDescriptionTest\",\"defaultAttributes\":\"DefaultAttributes\"}]";
+		assertEquals(testString, activationText);
 
-    }
-    
-    // Destroy the server
-    @AfterClass
-    public static void tearDown() throws IOException{
-        System.out.println("Stopping server");
-        server.stop(0);
-        System.out.println("Server stopped");
-    }
+	}
 
 }
