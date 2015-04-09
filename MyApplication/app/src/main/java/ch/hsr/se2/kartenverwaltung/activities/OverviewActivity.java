@@ -37,39 +37,42 @@ public class OverviewActivity extends ActionBarActivity {
 
 	private CardAdapter cardAdapter;
 	private ListView cardsListView;
-    private ArrayList<Card> cardList;
+	private ArrayList<Card> cardList;
 
-    private static String TAG = OverviewActivity.class.getSimpleName();
+	private static String TAG = OverviewActivity.class.getSimpleName();
 
-    // json array response url
-    private String urlJsonArry = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/GetFeeds";
+	// json array response url
+	private String urlJsonArry = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/GetFeeds";
 
-    // Progress dialog
-    private ProgressDialog pDialog;
+	// Progress dialog
+	private ProgressDialog pDialog;
 
-    @Override
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_overview);
+		cardList = new ArrayList<Card>();
+		cardsListView = (ListView) findViewById(R.id.listView_overview);
+	}
 
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Please wait...");
-        pDialog.setCancelable(false);
+	@Override
+	protected void onResume() {
+		super.onResume();
+		pDialog = new ProgressDialog(this);
+		pDialog.setMessage("Please wait...");
+		pDialog.setCancelable(false);
+		makeJsonArrayRequest();
+		cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, cardList);
+		cardsListView.setAdapter(cardAdapter);
+		cardsListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		cardsListView.setItemsCanFocus(false);
+		cardsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+				showCardDetail();
+			}
+		});
 
-        cardList = new ArrayList<Card>();
-        makeJsonArrayRequest();
-
-        cardsListView = (ListView) findViewById(R.id.listView_overview);
-        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, cardList);
-        cardsListView.setAdapter(cardAdapter);
-        cardsListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        cardsListView.setItemsCanFocus(false);
-        cardsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-                showCardDetail();
-            }
-        });
 	}
 
 	@Override
@@ -127,67 +130,61 @@ public class OverviewActivity extends ActionBarActivity {
 		return list;
 	}
 
-    /**
-     * Method to make json array request where response starts with [
-     * */
-    private void makeJsonArrayRequest() {
+	/**
+	 * Method to make json array request where response starts with [
+	 * */
+	private void makeJsonArrayRequest() {
 
-        showpDialog();
+		showpDialog();
 
-        JsonArrayRequest req = new JsonArrayRequest(urlJsonArry,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(TAG, response.toString());
+		JsonArrayRequest req = new JsonArrayRequest(urlJsonArry, new Response.Listener<JSONArray>() {
+			@Override
+			public void onResponse(JSONArray response) {
+				Log.d(TAG, response.toString());
 
-                        try {
-                            // Parsing json array response
-                            // loop through each json object
+				try {
+					// Parsing json array response
+					// loop through each json object
 
-                            for (int i = 0; i < response.length(); i++) {
+					for (int i = 0; i < response.length(); i++) {
 
-                                JSONObject card = (JSONObject) response
-                                        .get(i);
+						JSONObject card = (JSONObject) response.get(i);
 
-                                String name = card.getString("name");
-                                String description = card.getString("description");
+						String name = card.getString("name");
+						String description = card.getString("description");
 
-                                cardList.add(new Card(name, description));
+						cardList.add(new Card(name, description));
 
-                            }
+					}
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(),
-                                    "Error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                        }
+				} catch (JSONException e) {
+					e.printStackTrace();
+					Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+				}
 
-                        hidepDialog();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-                hidepDialog();
-            }
-        });
+				hidepDialog();
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				VolleyLog.d(TAG, "Error: " + error.getMessage());
+				Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+				hidepDialog();
+			}
+		});
 
-        // Adding request to request queue
-        JSONServiceHandler.getInstance().addToRequestQueue(req);
-    }
+		// Adding request to request queue
+		JSONServiceHandler.getInstance().addToRequestQueue(req);
+	}
 
-    private void showpDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
+	private void showpDialog() {
+		if (!pDialog.isShowing())
+			pDialog.show();
+	}
 
-    private void hidepDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
-
+	private void hidepDialog() {
+		if (pDialog.isShowing())
+			pDialog.dismiss();
+	}
 
 }
