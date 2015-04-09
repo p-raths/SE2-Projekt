@@ -6,6 +6,8 @@ package ch.hsr.se2.kartenverwaltung.services;
 
 
 
+import android.util.Log;
+
 import java.io.UnsupportedEncodingException;
         import java.util.Map;
         import org.json.JSONException;
@@ -24,21 +26,22 @@ public class VolleyCustomRequest extends Request<JSONObject> {
     private Map<String, String> params;
 
     public VolleyCustomRequest(String url, Map<String, String> params,
-                         Listener<JSONObject> reponseListener, ErrorListener errorListener) {
+                         Listener<JSONObject> responseListener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
-        this.listener = reponseListener;
+        this.listener = responseListener;
         this.params = params;
     }
 
     public VolleyCustomRequest(int method, String url, Map<String, String> params,
-                         Listener<JSONObject> reponseListener, ErrorListener errorListener) {
+                         Listener<JSONObject> responseListener, ErrorListener errorListener) {
         super(method, url, errorListener);
-        this.listener = reponseListener;
+        this.listener = responseListener;
         this.params = params;
     }
 
     protected Map<String, String> getParams()
             throws com.android.volley.AuthFailureError {
+        Log.d("VCR ", params.toString());
         return params;
     };
 

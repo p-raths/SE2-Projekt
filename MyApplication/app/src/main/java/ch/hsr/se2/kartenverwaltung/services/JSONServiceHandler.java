@@ -45,7 +45,7 @@ public class JSONServiceHandler extends Application{
     }
 
     public <T> void addToRequestQueue(Request<T> req) {
-        Log.d("ServiceHandler: ","addToRequest");
+        Log.d("ServiceHandler: ","addToRequest" + req.toString());
         req.setTag(TAG);
         getRequestQueue().add(req);
 
