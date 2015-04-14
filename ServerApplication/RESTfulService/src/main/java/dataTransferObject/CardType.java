@@ -29,6 +29,12 @@ public class CardType {
 		return id;
 	}
 	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	/**
 	 * @return the name
 	 */
 	public String getName() {
@@ -64,6 +70,4 @@ public class CardType {
 	public void setDefaultAttributes(String defaultAttributes) {
 		this.defaultAttributes = defaultAttributes;
 	}
-	
-	
 }

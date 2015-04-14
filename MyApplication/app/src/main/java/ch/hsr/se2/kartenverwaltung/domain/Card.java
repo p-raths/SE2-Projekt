@@ -15,8 +15,9 @@ public class Card {
 	private HashMap<Integer, Attribute> cardAttributesMap;
 	private HashMap<Integer, Location> locationHashMap;
 
-	public Card(final String name, final String description) {
-		this.cardName = name;
+	public Card(final int id, final String name, final String description) {
+		this.cardId = id;
+        this.cardName = name;
 		this.description = description;
 		this.creationDate = new Date();
 		this.cardAttributesMap = new HashMap<>();

@@ -20,7 +20,6 @@ import dataTransferObject.CardType;
 
 @Path("/WebService")
 public class FeedService {
-	
 	@GET
 	@Path("/GetFeeds")
 	@Produces("application/json")
@@ -44,9 +43,9 @@ public class FeedService {
 	}
 	
 	@POST
-	@Path("/PostFeeds*")
+	@Path("/PostFeeds")
 	@Consumes("application/json")
-	public String seedArray(@QueryParam("input") String input)
+	public String seedArray(@FormParam("input") String input)
 	{
 		String feeds  = null;
 		try 
@@ -71,16 +70,16 @@ public class FeedService {
 	@POST
 	@Path("/PostFeed")
 	@Produces("text/plain")
-	public Response seed(@QueryParam("id") String id, 
-			@QueryParam("name") String name, 
-			@QueryParam("description") String description, 
-			@QueryParam("defaultattributes") String defaultAttributes)
+	public Response seed(@FormParam("id") int id, 
+			@FormParam("name") String name, 
+			@FormParam("description") String description, 
+			@FormParam("defaultattributes") String defaultAttributes)
 	{		
 		String seedResult  = "";
 		try 
 		{
 			System.out.println("Input: id=" + id + "; name=" + name + "; desc=" + description + "; attr=" + defaultAttributes);
-			CardType seedData = new CardType(Integer.parseInt(id), name, description, defaultAttributes);
+			CardType seedData = new CardType(id, name, description, defaultAttributes);
 			ProjectManager projectManager= new ProjectManager();
 			seedResult = projectManager.PostFeed(seedData);
 
@@ -90,6 +89,4 @@ public class FeedService {
 		}
 		return Response.status(200).entity(seedResult).build();
 	}
-	
-
 }
