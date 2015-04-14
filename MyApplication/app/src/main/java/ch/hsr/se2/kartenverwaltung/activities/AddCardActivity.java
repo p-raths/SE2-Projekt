@@ -10,26 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import ch.hsr.se2.kartenverwaltung.R;
-import ch.hsr.se2.kartenverwaltung.domain.CardType;
-import ch.hsr.se2.kartenverwaltung.services.JSONServiceHandler;
-import ch.hsr.se2.kartenverwaltung.services.VolleyCustomRequest;
+import ch.hsr.se2.kartenverwaltung.services.JsonServiceHandler;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
@@ -95,9 +86,7 @@ public class AddCardActivity extends CommonActivity {
      */
     private void makeJsonObjectPost() {
 
-
-
-
+    //    JsonServiceHandler();
         StringRequest req = new StringRequest(Request.Method.POST, urlJsonObj, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -124,56 +113,10 @@ public class AddCardActivity extends CommonActivity {
 
             ;
         };
-        JSONServiceHandler.getInstance().addToRequestQueue(req);}
+        JsonServiceHandler.getInstance().addToRequestQueue(req);}
 
 
 }
-/*        {
-
-            @Override
-            public Map<String, String> getHeaders() throws com.android.volley.AuthFailureError {
-            HashMap<String, String> headers = new HashMap<String, String>();
-            headers.put("Content-Type", "application/x-www-form-urlencoded");
-            //headers.put("Content-Type", "application/json; charset=utf-8");
-            return headers;
-        }
-*/
-
-/*
-        JsonArrayRequest req = new JsonArrayRequest(Request.Method.POST, urlJsonObj, new JSONArray(feedData), new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                Log.d(TAG, response.toString());
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-
-
-        });
-        JSONServiceHandler.getInstance().addToRequestQueue(req);}
-    }
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewDebug;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ch.hsr.se2.kartenverwaltung.R;
-import ch.hsr.se2.kartenverwaltung.services.JSONServiceHandler;
+import ch.hsr.se2.kartenverwaltung.services.JsonServiceHandler;
 
 public class CardViewActivity extends ActionBarActivity {
 
@@ -114,7 +113,7 @@ public class CardViewActivity extends ActionBarActivity {
 
             ;
         };
-        JSONServiceHandler.getInstance().addToRequestQueue(req);
+        JsonServiceHandler.getInstance().addToRequestQueue(req);
 
     }
 
