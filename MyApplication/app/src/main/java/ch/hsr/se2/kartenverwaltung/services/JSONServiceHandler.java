@@ -11,14 +11,14 @@ import com.android.volley.toolbox.Volley;
 /**
  * Created by Fehr on 07.04.2015.
  */
-public class JSONServiceHandler extends Application{
+public class JsonServiceHandler extends Application{
 
 
-    public static final String TAG = JSONServiceHandler.class.getSimpleName();
+    public static final String TAG = JsonServiceHandler.class.getSimpleName();
 
     private RequestQueue mRequestQueue;
 
-    private static JSONServiceHandler mInstance;
+    private static JsonServiceHandler mInstance;
 
     @Override
     public void onCreate() {
@@ -27,7 +27,7 @@ public class JSONServiceHandler extends Application{
         Log.d("ServiceHandler: ","Created");
     }
 
-    public static synchronized JSONServiceHandler getInstance() {
+    public static synchronized JsonServiceHandler getInstance() {
         return mInstance;
     }
 
@@ -59,3 +59,12 @@ public class JSONServiceHandler extends Application{
 
 
 }
+
+
+
+
+
+
+
+
+
