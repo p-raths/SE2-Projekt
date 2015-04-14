@@ -42,7 +42,7 @@ public class OverviewActivity extends ActionBarActivity {
 	private static String TAG = OverviewActivity.class.getSimpleName();
 
 	// json array response url
-	private String urlJsonArry = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/GetFeeds";
+	private final String URL_JSON_ARRAY = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/GetFeeds";
 
 	// Progress dialog
 	private ProgressDialog pDialog;
@@ -53,11 +53,7 @@ public class OverviewActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_overview);
 		cardList = new ArrayList<Card>();
 		cardsListView = (ListView) findViewById(R.id.listView_overview);
-	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
 		pDialog = new ProgressDialog(this);
 		pDialog.setMessage("Please wait...");
 		pDialog.setCancelable(false);
@@ -70,10 +66,18 @@ public class OverviewActivity extends ActionBarActivity {
 		cardsListView.setItemsCanFocus(false);
 		cardsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
-			public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+			public void onItemClick(AdapterView<?> parent, View view, final int position, final long id) {
 				showCardDetail();
 			}
 		});
+
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+        makeJsonArrayRequest();
+        this.cardAdapter.notifyDataSetChanged();
 
 	}
 
@@ -136,12 +140,12 @@ public class OverviewActivity extends ActionBarActivity {
 
 	/**
 	 * Method to make json array request where response starts with [
-	 * */
+	 */
 	private void makeJsonArrayRequest() {
 
 		showpDialog();
 
-		JsonArrayRequest req = new JsonArrayRequest(urlJsonArry, new Response.Listener<JSONArray>() {
+		JsonArrayRequest req = new JsonArrayRequest(URL_JSON_ARRAY, new Response.Listener<JSONArray>() {
 			@Override
 			public void onResponse(JSONArray response) {
 				Log.d(TAG, response.toString());
@@ -172,7 +176,7 @@ public class OverviewActivity extends ActionBarActivity {
 			@Override
 			public void onErrorResponse(VolleyError error) {
 				VolleyLog.d(TAG, "Error: " + error.getMessage());
-				Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
 				hidepDialog();
 			}
 		});
