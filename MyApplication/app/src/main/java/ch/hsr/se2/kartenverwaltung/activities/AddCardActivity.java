@@ -20,6 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ch.hsr.se2.kartenverwaltung.R;
+import ch.hsr.se2.kartenverwaltung.adapters.CardAdapter;
+import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
+import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
 import ch.hsr.se2.kartenverwaltung.services.JsonServiceHandler;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
@@ -28,7 +31,8 @@ import roboguice.inject.InjectView;
  * This activity shows the card details
  */
 @ContentView(R.layout.activity_add_card)
-public class AddCardActivity extends CommonActivity {
+
+public class AddCardActivity extends CommonActivity implements JsonEventInterface{
 
 	@InjectView(R.id.card_name)
 	private EditText cardNameField;
@@ -53,6 +57,9 @@ public class AddCardActivity extends CommonActivity {
 	// Progress dialog
 	private ProgressDialog pDialog;
 
+    // Initalize request handler to get json data
+    private JsonRequestHandler en;
+
 	@Override
 	public void onStop() {
 		super.onStop();
@@ -67,7 +74,13 @@ public class AddCardActivity extends CommonActivity {
 		pDialog = new ProgressDialog(this);
 		pDialog.setMessage("Please wait...");
 		pDialog.setCancelable(false);
+
+        en = new JsonRequestHandler(this);
 	}
+
+    public void jsonResponseFinished(){
+
+    }
 
 	private void createOverViewActivity() {
 		Intent intent = new Intent(this, OverviewActivity.class);
@@ -78,69 +91,22 @@ public class AddCardActivity extends CommonActivity {
 
 		@Override
 		public void onClick(View view) {
-			// TODO we should send this object to the server
-			// Card newCard = new Card(cardNameField.getText().toString(), cardDescriptionField.getText().toString());
-			// createOverViewActivity();
 
-			makeJsonObjectPost();
+            en.jsonPostMethod(inputFieldsToMap());
 			createOverViewActivity();
 			// finish();
 		}
 	}
 
-	/**
-	 * Method to make json post [
-	 */
-	private void makeJsonObjectPost() {
+	private Map<String, String> inputFieldsToMap() {
 
-
-        //    JsonServiceHandler();
-        StringRequest req = new StringRequest(Request.Method.POST, urlJsonObj, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("CardActivityResponse", response.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
-                Map<String, String> jsonParams = new HashMap<String, String>();
-                jsonParams.put("id", "-1");
-                jsonParams.put("name", cardNameField.getText().toString());
-                jsonParams.put("description", cardDescriptionField.getText().toString());
-                jsonParams.put("defaultattributes", "Imanattribute");
-                Log.d("AddCardActivitygetP", jsonParams.toString());
-                return jsonParams;
-            }
-
-            ;
-        };
-        JsonServiceHandler.getInstance().addToRequestQueue(req);}
+        Map<String, String> jsonParams = new HashMap<String, String>();
+        jsonParams.put("id", "-1");
+        jsonParams.put("name", cardNameField.getText().toString());
+        jsonParams.put("description", cardDescriptionField.getText().toString());
+        jsonParams.put("defaultattributes", "Imanattribute");
+        Log.d("AddCardActivitygetP", jsonParams.toString());
+        return jsonParams;
+    }
 }
-
-
-/*
- * {
- * 
- * @Override public Map<String, String> getHeaders() throws com.android.volley.AuthFailureError { HashMap<String, String> headers = new HashMap<String, String>();
- * headers.put("Content-Type", "application/x-www-form-urlencoded"); //headers.put("Content-Type", "application/json; charset=utf-8"); return headers; }
- */
-
-/*
- * JsonArrayRequest req = new JsonArrayRequest(Request.Method.POST, urlJsonObj, new JSONArray(feedData), new Response.Listener<JSONArray>() {
- * 
- * @Override public void onResponse(JSONArray response) { Log.d(TAG, response.toString()); } }, new Response.ErrorListener() {
- * 
- * @Override public void onErrorResponse(VolleyError error) { VolleyLog.d(TAG, "Error: " + error.getMessage()); Toast.makeText(getApplicationContext(), error.getMessage(),
- * Toast.LENGTH_LONG).show(); }
- * 
- * 
- * }); JSONServiceHandler.getInstance().addToRequestQueue(req);} }
- */
 

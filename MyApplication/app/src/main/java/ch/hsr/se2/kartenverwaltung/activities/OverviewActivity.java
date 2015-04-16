@@ -68,8 +68,8 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
         en = new JsonRequestHandler(this);
         en.jsonGetMethod();
 
-//		cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, cardList);
-//		cardsListView.setAdapter(cardAdapter);
+        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, en.jsonGetList());
+        cardsListView.setAdapter(cardAdapter);
 		cardsListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		cardsListView.setItemsCanFocus(false);
 		cardsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

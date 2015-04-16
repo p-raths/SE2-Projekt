@@ -19,9 +19,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ch.hsr.se2.kartenverwaltung.R;
+import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
+import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
 import ch.hsr.se2.kartenverwaltung.services.JsonServiceHandler;
 
-public class CardViewActivity extends ActionBarActivity {
+public class CardViewActivity extends ActionBarActivity implements JsonEventInterface {
 
     private int cardId;
 	private TextView cardName;
@@ -31,6 +33,9 @@ public class CardViewActivity extends ActionBarActivity {
     private String urlJsonObj = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/PostFeed";
 
     private static String TAG = CardViewActivity.class.getSimpleName();
+
+    // Initalize request handler to get json data
+    private JsonRequestHandler en;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +49,12 @@ public class CardViewActivity extends ActionBarActivity {
         cardName.setText(bundle.getString("card_name"));
 		cardDescription.setText(bundle.getString("card_description"));
         Log.d("CardViewParams", Integer.toString(cardId) + bundle.getString("card_name") + bundle.getString("card_description"));
+        en = new JsonRequestHandler(this);
 	}
+
+    public void jsonResponseFinished(){
+
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,6 +125,17 @@ public class CardViewActivity extends ActionBarActivity {
         };
         JsonServiceHandler.getInstance().addToRequestQueue(req);
 
+    }
+
+    private Map<String, String> inputFieldsToMap() {
+
+        Map<String, String> jsonParams = new HashMap<String, String>();
+        jsonParams.put("id", Integer.toString(cardId));
+        jsonParams.put("name", "");
+        jsonParams.put("description", "");
+        jsonParams.put("defaultattributes", "");
+        Log.d("DeleteCardParams", jsonParams.toString());
+        return jsonParams;
     }
 
 }

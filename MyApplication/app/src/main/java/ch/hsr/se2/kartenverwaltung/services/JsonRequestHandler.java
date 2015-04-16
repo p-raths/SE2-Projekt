@@ -37,23 +37,28 @@ public class JsonRequestHandler implements JsonEventInterface{
 
     private JsonEventInterface ie;
 
+    private Map<String, String> jsonPostParams;
+
     public JsonRequestHandler(JsonEventInterface event){
        getCardList = new ArrayList<Card>();
        ie=event;
     }
 
+    public void jsonResponseFinished(){}
+
     public ArrayList<Card> jsonGetList() {
         return getCardList;
     }
 
-    public void jsonPostMethod(Card card) {
+    public void jsonPostMethod(Map<String, String> jsonParams) {
 
-        postCard = card;
+        jsonPostParams = jsonParams;
 
         StringRequest req = new StringRequest(Request.Method.POST, URL_JSON_POST, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("JSONPostMethod", response.toString());
+                ie.jsonResponseFinished();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -63,19 +68,12 @@ public class JsonRequestHandler implements JsonEventInterface{
         }) {
             @Override
             protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
-                Map<String, String> jsonParams = new HashMap<String, String>();
-                jsonParams.put("id", Integer.toString(postCard.getCardId()));
-                jsonParams.put("name", postCard.getCardName());
-                jsonParams.put("description", postCard.getDescription());
-                jsonParams.put("defaultattributes", "Imanattribute");
-                Log.d("JsonPostParams", jsonParams.toString());
-                return jsonParams;
+                return jsonPostParams;
             }
             ;
         };
         JsonServiceHandler.getInstance().addToRequestQueue(req);}
 
-    public void jsonResponseFinished(){}
 
     public void jsonGetMethod() {
 
