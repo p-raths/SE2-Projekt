@@ -82,6 +82,7 @@ public class JsonRequestHandler implements JsonEventInterface{
         JsonArrayRequest req = new JsonArrayRequest(URL_JSON_GET, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                //Log response from server
                 Log.d(TAG, response.toString());
 
                 try {
@@ -100,14 +101,12 @@ public class JsonRequestHandler implements JsonEventInterface{
                     ie.jsonResponseFinished();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    //Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         // Adding request to request queue

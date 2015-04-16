@@ -7,5 +7,4 @@ public interface JsonEventInterface {
 
         public void jsonResponseFinished ();
 
-
 }

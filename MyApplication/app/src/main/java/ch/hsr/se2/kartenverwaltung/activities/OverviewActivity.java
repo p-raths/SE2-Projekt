@@ -28,17 +28,20 @@ import java.util.List;
 import ch.hsr.se2.kartenverwaltung.R;
 import ch.hsr.se2.kartenverwaltung.adapters.CardAdapter;
 import ch.hsr.se2.kartenverwaltung.domain.Card;
-import ch.hsr.se2.kartenverwaltung.services.JSONServiceHandler;
+import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
+import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
+import ch.hsr.se2.kartenverwaltung.services.JsonServiceHandler;
 
 /*
  *This activity shows a card list.
  */
-public class OverviewActivity extends ActionBarActivity {
+public class OverviewActivity extends ActionBarActivity implements JsonEventInterface {
 
 	private CardAdapter cardAdapter;
 	private ListView cardsListView;
 	private ArrayList<Card> cardList;
 
+    // tag for Log.d
 	private static String TAG = OverviewActivity.class.getSimpleName();
 
 	// json array response url
@@ -47,10 +50,14 @@ public class OverviewActivity extends ActionBarActivity {
 	// Progress dialog
 	private ProgressDialog pDialog;
 
+    // Initalize request handler to get json data
+    private JsonRequestHandler en;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_overview);
+
 		cardList = new ArrayList<Card>();
 		cardsListView = (ListView) findViewById(R.id.listView_overview);
 
@@ -58,10 +65,11 @@ public class OverviewActivity extends ActionBarActivity {
 		pDialog.setMessage("Please wait...");
 		pDialog.setCancelable(false);
 
-		makeJsonArrayRequest();
+        en = new JsonRequestHandler(this);
+        en.jsonGetMethod();
 
-		cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, cardList);
-		cardsListView.setAdapter(cardAdapter);
+//		cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, cardList);
+//		cardsListView.setAdapter(cardAdapter);
 		cardsListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		cardsListView.setItemsCanFocus(false);
 		cardsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -70,13 +78,17 @@ public class OverviewActivity extends ActionBarActivity {
 				showCardDetail();
 			}
 		});
-
 	}
+
+    public void jsonResponseFinished(){
+        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, en.jsonGetList());
+        cardsListView.setAdapter(cardAdapter);
+    }
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-        makeJsonArrayRequest();
+        en.jsonGetMethod();
         this.cardAdapter.notifyDataSetChanged();
 
 	}
@@ -104,12 +116,10 @@ public class OverviewActivity extends ActionBarActivity {
 	}
 
 	private void doLogout() {
-
 		startActivity(new Intent(this, LoginActivity.class));
 	}
 
 	private void startAddActivity() {
-
 		startActivity(new Intent(this, AddCardActivity.class));
 	}
 
@@ -137,62 +147,4 @@ public class OverviewActivity extends ActionBarActivity {
 		}
 		return list;
 	}
-
-	/**
-	 * Method to make json array request where response starts with [
-	 */
-	private void makeJsonArrayRequest() {
-
-		showpDialog();
-
-		JsonArrayRequest req = new JsonArrayRequest(URL_JSON_ARRAY, new Response.Listener<JSONArray>() {
-			@Override
-			public void onResponse(JSONArray response) {
-				Log.d(TAG, response.toString());
-
-				try {
-					// Parsing json array response
-					// loop through each json object
-
-					for (int i = 0; i < response.length(); i++) {
-
-						JSONObject card = (JSONObject) response.get(i);
-
-                        int id = card.getInt("id");
-						String name = card.getString("name");
-						String description = card.getString("description");
-						cardList.add(new Card(id, name, description));
-
-					}
-
-				} catch (JSONException e) {
-					e.printStackTrace();
-					Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-				}
-
-				hidepDialog();
-			}
-		}, new Response.ErrorListener() {
-			@Override
-			public void onErrorResponse(VolleyError error) {
-				VolleyLog.d(TAG, "Error: " + error.getMessage());
-				Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-				hidepDialog();
-			}
-		});
-
-		// Adding request to request queue
-		JSONServiceHandler.getInstance().addToRequestQueue(req);
-	}
-
-	private void showpDialog() {
-		if (!pDialog.isShowing())
-			pDialog.show();
-	}
-
-	private void hidepDialog() {
-		if (pDialog.isShowing())
-			pDialog.dismiss();
-	}
-
 }
