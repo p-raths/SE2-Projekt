@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="ch.hsr.se2.kartenverwaltung.activities.OverviewActivity"
+    >
+
+<item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_addCard"
+        android:orderInCategory="1"
+        android:title="@string/action_addCard"
+        app:showAsAction="ifRoom|withText"/>
+
+    <item
+        android:id="@+id/action_editCard"
+        android:icon="@drawable/ic_action_edit"
+        android:orderInCategory="2"
+        android:title="@string/action_editCard"
+        app:showAsAction="ifRoom|withText"
+        />
+    <item
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_action_logout"
+        android:orderInCategory="3"
+        android:title="@string/logout"
+        app:showAsAction="ifRoom|withText"/>
+
+</menu>
+<!-- From: file:/Users/roberto/AndroidstudioProjects/SE2-Projekt/MyApplication/app/src/main/res/menu/menu_overview.xml -->
