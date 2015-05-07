@@ -1,26 +1,14 @@
 package ch.hsr.se2.kartenverwaltung.activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +16,9 @@ import java.util.List;
 import ch.hsr.se2.kartenverwaltung.R;
 import ch.hsr.se2.kartenverwaltung.adapters.CardAdapter;
 import ch.hsr.se2.kartenverwaltung.domain.Card;
+import ch.hsr.se2.kartenverwaltung.data.CardDataSource;
 import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
 import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
-import ch.hsr.se2.kartenverwaltung.services.JsonServiceHandler;
 
 /*
  *This activity shows a card list.
@@ -44,14 +32,11 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
     // tag for Log.d
 	private static String TAG = OverviewActivity.class.getSimpleName();
 
-	// json array response url
-	private final String URL_JSON_ARRAY = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/GetFeeds";
-
-	// Progress dialog
-	private ProgressDialog pDialog;
-
     // Initalize request handler to get json data
     private JsonRequestHandler en;
+
+    //For local database implementation
+    private CardDataSource datasource;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +46,15 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 		cardList = new ArrayList<Card>();
 		cardsListView = (ListView) findViewById(R.id.listView_overview);
 
-		pDialog = new ProgressDialog(this);
-		pDialog.setMessage("Please wait...");
-		pDialog.setCancelable(false);
+        // For local database implementation
+        datasource = new CardDataSource(this);
+        datasource.open();
 
+        // create jsonRequestHandler for getting data from server
         en = new JsonRequestHandler(this);
         en.jsonGetMethod();
 
-        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, en.jsonGetList());
-        cardsListView.setAdapter(cardAdapter);
+
 		cardsListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		cardsListView.setItemsCanFocus(false);
 		cardsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,16 +66,23 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 	}
 
     public void jsonResponseFinished(){
-        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, en.jsonGetList());
+        datasource.open();
+//        datasource.syncCards(en.jsonGetList());
+        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, datasource.getAllCards());
+        datasource.close();
         cardsListView.setAdapter(cardAdapter);
+
+       // cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, en.jsonGetList());
+       // cardsListView.setAdapter(cardAdapter);
     }
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-        en.jsonGetMethod();
-        this.cardAdapter.notifyDataSetChanged();
 
+        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, datasource.getAllCards());
+        cardsListView.setAdapter(cardAdapter);
+        this.cardAdapter.notifyDataSetChanged();
 	}
 
 	@Override

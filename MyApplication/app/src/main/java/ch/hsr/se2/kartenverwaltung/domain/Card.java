@@ -14,6 +14,7 @@ public class Card {
 	private Date creationDate;
 	private HashMap<Integer, Attribute> cardAttributesMap;
 	private HashMap<Integer, Location> locationHashMap;
+    private int cardRevision;
 
 	public Card(final int id, final String name, final String description) {
 		this.cardId = id;
@@ -22,15 +23,28 @@ public class Card {
 		this.creationDate = new Date();
 		this.cardAttributesMap = new HashMap<>();
 		this.locationHashMap = new HashMap<>();
-	}
+	    this.cardRevision = 1;
+    }
 
 	public void setCardId(final int id) {
 		this.cardId = id;
 	}
 
+    public void setCardName(final String name) {
+        this.cardName = name;
+    }
+
+    public void setCardDescription(final String description) {
+        this.description = description;
+    }
+
 	public void setAttribut(final Attribute newAttribut) {
 		this.cardAttributesMap.put(newAttribut.getId(), newAttribut);
 	}
+
+    public void setCardRevision(final int revision){
+        this.cardRevision = revision;
+    }
 
 	public Integer getCardId() {
 		return this.cardId;
@@ -72,4 +86,8 @@ public class Card {
 	public Date getCreationDate() {
 		return creationDate;
 	}
+
+    public int getRevision(){
+        return cardRevision;
+    }
 }

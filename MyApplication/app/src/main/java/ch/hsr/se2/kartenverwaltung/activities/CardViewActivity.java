@@ -7,35 +7,26 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.StringRequest;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import ch.hsr.se2.kartenverwaltung.R;
+import ch.hsr.se2.kartenverwaltung.domain.Card;
+import ch.hsr.se2.kartenverwaltung.data.CardDataSource;
 import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
 import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
-import ch.hsr.se2.kartenverwaltung.services.JsonServiceHandler;
 
 public class CardViewActivity extends ActionBarActivity implements JsonEventInterface {
 
     private int cardId;
 	private TextView cardName;
 	private TextView cardDescription;
-
-    // json array response url
-    private String urlJsonObj = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/PostFeed";
+    private Card parseCard;
 
     private static String TAG = CardViewActivity.class.getSimpleName();
 
     // Initalize request handler to get json data
     private JsonRequestHandler en;
+
+    private CardDataSource datasource;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +40,15 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
         cardName.setText(bundle.getString("card_name"));
 		cardDescription.setText(bundle.getString("card_description"));
         Log.d("CardViewParams", Integer.toString(cardId) + bundle.getString("card_name") + bundle.getString("card_description"));
+
         en = new JsonRequestHandler(this);
+
+        parseCard = new Card(bundle.getInt("card_id"), bundle.getString("card_name"), bundle.getString("card_description") );
+        datasource = new CardDataSource(this);
+        datasource.open();
 	}
 
     public void jsonResponseFinished(){
-
     }
 
 	@Override
@@ -75,7 +70,8 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
 			// TODO complete
 			return true;
 		case R.id.action_deleteCard:
-            deleteCard();
+            datasource.deleteCard(parseCard);
+            //en.jsonPostMethod(inputFieldsToMap());
             createOverViewActivity();
 			return true;
 		case R.id.action_logout:
@@ -94,48 +90,4 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
         Intent intent = new Intent(this, OverviewActivity.class);
         startActivity(intent);
     }
-
-    private void deleteCard(){
-
-        StringRequest req = new StringRequest(Request.Method.POST, urlJsonObj, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("CardDeleteResponse", response.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
-                Map<String, String> jsonParams = new HashMap<String, String>();
-                jsonParams.put("id", Integer.toString(cardId));
-                jsonParams.put("name", "");
-                jsonParams.put("description", "");
-                jsonParams.put("defaultattributes", "");
-                Log.d("DeleteCardParams", jsonParams.toString());
-                return jsonParams;
-            }
-
-            ;
-        };
-        JsonServiceHandler.getInstance().addToRequestQueue(req);
-
-    }
-
-    private Map<String, String> inputFieldsToMap() {
-
-        Map<String, String> jsonParams = new HashMap<String, String>();
-        jsonParams.put("id", Integer.toString(cardId));
-        jsonParams.put("name", "");
-        jsonParams.put("description", "");
-        jsonParams.put("defaultattributes", "");
-        Log.d("DeleteCardParams", jsonParams.toString());
-        return jsonParams;
-    }
-
 }

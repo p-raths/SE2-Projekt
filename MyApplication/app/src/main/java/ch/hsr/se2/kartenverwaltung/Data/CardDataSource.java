@@ -20,20 +20,20 @@ public class CardDataSource implements JsonEventInterface{
 
     // Database fields
     private SQLiteDatabase database;
-    private ch.hsr.se2.kartenverwaltung.data.SQLiteHelper dbHelper;
+    private SQLiteHelper dbHelper;
 
     // Initalize request handler to get json data
     private JsonRequestHandler en;
 
-    private String[] allColumns = { ch.hsr.se2.kartenverwaltung.data.SQLiteHelper.ATTRIBUTE_COLUMN_CARDID,
-            ch.hsr.se2.kartenverwaltung.data.SQLiteHelper.CARD_COLUMN_CARDNAME,
-            ch.hsr.se2.kartenverwaltung.data.SQLiteHelper.CARD_COLUMN_CARDDESCRIPTION,
-            ch.hsr.se2.kartenverwaltung.data.SQLiteHelper.CARD_COLUMN_CARDCREATEDON,
-            ch.hsr.se2.kartenverwaltung.data.SQLiteHelper.CARD_COLUMN_CATID,
-            ch.hsr.se2.kartenverwaltung.data.SQLiteHelper.CARD_COLUMN_USRID};
+    private String[] allColumns = { SQLiteHelper.ATTRIBUTE_COLUMN_CARDID,
+            SQLiteHelper.CARD_COLUMN_CARDNAME,
+            SQLiteHelper.CARD_COLUMN_CARDDESCRIPTION,
+            SQLiteHelper.CARD_COLUMN_CARDCREATEDON,
+            SQLiteHelper.CARD_COLUMN_CATID,
+            SQLiteHelper.CARD_COLUMN_USRID};
 
     public CardDataSource(Context context) {
-        dbHelper = new ch.hsr.se2.kartenverwaltung.data.SQLiteHelper(context);
+        dbHelper = new SQLiteHelper(context);
         en = new JsonRequestHandler(this);
         en.jsonGetMethod();
     }

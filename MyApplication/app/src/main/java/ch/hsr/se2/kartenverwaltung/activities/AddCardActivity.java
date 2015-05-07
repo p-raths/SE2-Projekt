@@ -1,6 +1,5 @@
 package ch.hsr.se2.kartenverwaltung.activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,22 +7,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.StringRequest;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import ch.hsr.se2.kartenverwaltung.R;
-import ch.hsr.se2.kartenverwaltung.adapters.CardAdapter;
+import ch.hsr.se2.kartenverwaltung.domain.Card;
+import ch.hsr.se2.kartenverwaltung.data.CardDataSource;
 import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
 import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
-import ch.hsr.se2.kartenverwaltung.services.JsonServiceHandler;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
@@ -49,16 +38,10 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
 	@InjectView(R.id.cancel_button)
 	private Button cancelButton;
 
-	private static String TAG = AddCardActivity.class.getSimpleName();
-
-	// json array response url
-	private String urlJsonObj = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/PostFeed";
-
-	// Progress dialog
-	private ProgressDialog pDialog;
-
     // Initalize request handler to get json data
     private JsonRequestHandler en;
+
+    private CardDataSource datasource;
 
 	@Override
 	public void onStop() {
@@ -71,15 +54,14 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
 		super.onCreate(savedInstanceState);
 		saveButton.setOnClickListener(new CardSavelistener());
 
-		pDialog = new ProgressDialog(this);
-		pDialog.setMessage("Please wait...");
-		pDialog.setCancelable(false);
-
         en = new JsonRequestHandler(this);
+
+        datasource = new CardDataSource(this);
+        datasource.open();
+
 	}
 
     public void jsonResponseFinished(){
-
     }
 
 	private void createOverViewActivity() {
@@ -91,22 +73,16 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
 
 		@Override
 		public void onClick(View view) {
-
-            en.jsonPostMethod(inputFieldsToMap());
+            datasource.createCard(inputFieldsToCard());
+            datasource.close();
 			createOverViewActivity();
-			// finish();
 		}
 	}
 
-	private Map<String, String> inputFieldsToMap() {
-
-        Map<String, String> jsonParams = new HashMap<String, String>();
-        jsonParams.put("id", "-1");
-        jsonParams.put("name", cardNameField.getText().toString());
-        jsonParams.put("description", cardDescriptionField.getText().toString());
-        jsonParams.put("defaultattributes", "Imanattribute");
-        Log.d("AddCardActivitygetP", jsonParams.toString());
-        return jsonParams;
+	private Card inputFieldsToCard() {
+        Card card = new Card(-1, cardNameField.getText().toString(), cardDescriptionField.getText().toString());
+        Log.d("AddCardActivitygetP", "Id: " + card.getCardId() + " Name: " + card.getCardName() + " Description: " + card.getDescription());
+        return card;
     }
 }
 

@@ -2,46 +2,46 @@
 <items version="2" >
 
     <item
-        jar="/Users/roberto/AndroidstudioProjects/SE2-Projekt/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
-        <dex dex="/Users/roberto/AndroidstudioProjects/SE2-Projekt/MyApplication/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-fca091ea0ed5099da56f0cb71c9a17adef556e07.jar" />
-    </item>
-    <item
-        jar="/Users/roberto/AndroidstudioProjects/SE2-Projekt/MyApplication/app/libs/volley.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
-        <dex dex="/Users/roberto/AndroidstudioProjects/SE2-Projekt/MyApplication/app/build/intermediates/pre-dexed/debug/volley-20ebe1f22264235dbe70ff794f241c69e2f861ee.jar" />
-    </item>
-    <item
-        jar="/Users/roberto/.gradle/caches/modules-2/files-2.1/org.roboguice/roboguice/3.0.1/24e814f35d5cc28eaa7e9f07a50ea69deeb2b544/roboguice-3.0.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="24e814f35d5cc28eaa7e9f07a50ea69deeb2b544">
-        <dex dex="/Users/roberto/AndroidstudioProjects/SE2-Projekt/MyApplication/app/build/intermediates/pre-dexed/debug/roboguice-3.0.1-19e63e6fe38278ede2a4beb50ed81a88fa4cd7bc.jar" />
-    </item>
-    <item
-        jar="/Users/roberto/AndroidstudioProjects/SE2-Projekt/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
-        <dex dex="/Users/roberto/AndroidstudioProjects/SE2-Projekt/MyApplication/app/build/intermediates/pre-dexed/debug/classes-379dfe447eb7a6dd3675f6f622d09b606c700333.jar" />
-    </item>
-    <item
-        jar="/Users/roberto/android-sdks/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
+        jar="C:\Users\Fehr\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.0.0\support-annotations-22.0.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
-        <dex dex="/Users/roberto/AndroidstudioProjects/SE2-Projekt/MyApplication/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-10af6ecc65b7db64b04b8ff84a3a85f2bcb63367.jar" />
+        <dex dex="C:\Git\SE2-Projekt\MyApplication\app\build\intermediates\pre-dexed\debug\support-annotations-22.0.0-e112f75feaad1fc853db28d03c9c032922f41b56.jar" />
     </item>
     <item
-        jar="/Users/roberto/AndroidstudioProjects/SE2-Projekt/MyApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
+        jar="C:\Users\Fehr\.gradle\caches\modules-2\files-2.1\org.roboguice\roboguice\3.0.1\24e814f35d5cc28eaa7e9f07a50ea69deeb2b544\roboguice-3.0.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="24e814f35d5cc28eaa7e9f07a50ea69deeb2b544">
+        <dex dex="C:\Git\SE2-Projekt\MyApplication\app\build\intermediates\pre-dexed\debug\roboguice-3.0.1-4d1dbd9efbd1bb8de8c45831e55e29763aa8c08e.jar" />
+    </item>
+    <item
+        jar="C:\Git\SE2-Projekt\MyApplication\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\libs\internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="C:\Git\SE2-Projekt\MyApplication\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-48b8823a41fba5a60a3c3b10b24957d24ca1dd22.jar" />
+    </item>
+    <item
+        jar="C:\Git\SE2-Projekt\MyApplication\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="C:\Git\SE2-Projekt\MyApplication\app\build\intermediates\pre-dexed\debug\classes-a643ea62a6117eece97e96a57a456d554b882081.jar" />
+    </item>
+    <item
+        jar="C:\Git\SE2-Projekt\MyApplication\app\libs\volley.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d4aaa36e04ee71a83444f8367c97a46fda662d2c">
+        <dex dex="C:\Git\SE2-Projekt\MyApplication\app\build\intermediates\pre-dexed\debug\volley-8b129d08246fd0c23f27e0c4e6fac8cec5ba71f0.jar" />
+    </item>
+    <item
+        jar="C:\Git\SE2-Projekt\MyApplication\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.0.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="d84409890828e07d344a3b9b1da545dba9897b51">
-        <dex dex="/Users/roberto/AndroidstudioProjects/SE2-Projekt/MyApplication/app/build/intermediates/pre-dexed/debug/classes-bc6f59d7334084fae04be57157d9961d5f2062d9.jar" />
+        <dex dex="C:\Git\SE2-Projekt\MyApplication\app\build\intermediates\pre-dexed\debug\classes-68353f790d337356e45d6ab3f2f9f652dfedb13c.jar" />
     </item>
 
 </items>
