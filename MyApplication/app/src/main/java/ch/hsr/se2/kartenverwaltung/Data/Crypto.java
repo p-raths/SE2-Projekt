@@ -1,4 +1,4 @@
-package ch.hsr.se2.kartenverwaltung.Data;
+package ch.hsr.se2.kartenverwaltung.data;
 
 import android.util.Base64;
 
