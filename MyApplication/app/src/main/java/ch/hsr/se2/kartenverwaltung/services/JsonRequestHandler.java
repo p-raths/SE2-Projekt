@@ -30,6 +30,8 @@ public class JsonRequestHandler implements JsonEventInterface{
     // json array response url
     private final String URL_JSON_POST = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/PostFeed";
     private final String URL_JSON_GET = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/GetFeeds";
+    private final String URL_JSON_LOGIN = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/xxxxxxxxxxxxxxxxxxxx";
+
 
     private Card postCard;
 
@@ -37,7 +39,7 @@ public class JsonRequestHandler implements JsonEventInterface{
 
     private JsonEventInterface ie;
 
-//    private Map<String, String> jsonPostParams;
+    private Map<String, String> jsonPostParams;
 
     private Card cardToMap;
 
@@ -47,14 +49,11 @@ public class JsonRequestHandler implements JsonEventInterface{
        ie=event;
     }
 
-
     public void jsonResponseFinished(){}
-
 
     public ArrayList<Card> jsonGetList() {
         return getCardList;
     }
-
 
     public void jsonAddCardMethod(Card card) {
         cardToMap = card;
@@ -84,7 +83,6 @@ public class JsonRequestHandler implements JsonEventInterface{
         };
         JsonServiceHandler.getInstance().addToRequestQueue(req);}
 
-
     public void jsonDeleteCardMethod(Card card) {
         cardToMap = card;
         StringRequest req = new StringRequest(Request.Method.POST, URL_JSON_POST, new Response.Listener<String>() {
@@ -110,7 +108,6 @@ public class JsonRequestHandler implements JsonEventInterface{
                 return jsonParams;
             };};
         JsonServiceHandler.getInstance().addToRequestQueue(req);}
-
 
     public boolean jsonUpdateCardMethod(Card card){
         cardToMap = card;
@@ -141,7 +138,6 @@ public class JsonRequestHandler implements JsonEventInterface{
         JsonServiceHandler.getInstance().addToRequestQueue(req);
         return true;}
 
-
     public void jsonGetMethod() {
         JsonArrayRequest req = new JsonArrayRequest(URL_JSON_GET, new Response.Listener<JSONArray>() {
             @Override
@@ -167,6 +163,38 @@ public class JsonRequestHandler implements JsonEventInterface{
         });
         // Adding request to request queue
         JsonServiceHandler.getInstance().addToRequestQueue(req);}
+
+    public boolean jsonLoginMethod(Map<String, String> jsonParams) {
+        jsonPostParams = jsonParams;
+
+        StringRequest req = new StringRequest(Request.Method.POST, URL_JSON_LOGIN, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("JSONPostMethod", response.toString());
+                ie.jsonResponseFinished();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
+                return jsonPostParams;
+            }
+            ;
+        };
+        JsonServiceHandler.getInstance().addToRequestQueue(req);
+
+        /*
+        *  ie.jsonResponseFinished() ist eine methode wo kein return statement hat?
+        * return ie.jsonResponseFinished();
+        *
+        */
+        return true;
+    }
+
 }
 
 
