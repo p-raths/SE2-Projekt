@@ -7,15 +7,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.view.View.OnClickListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.crypto.spec.SecretKeySpec;
+
 import ch.hsr.se2.kartenverwaltung.Data.Crypto;
 import ch.hsr.se2.kartenverwaltung.R;
+import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 @ContentView(R.layout.activity_login)
 public class LoginActivity extends CommonActivity {
 
-	@InjectView(R.id.email_editText)
+    static SecretKeySpec aesKey;
+
+    private JsonRequestHandler jsonHandler;
+
+
+
+    @InjectView(R.id.email_editText)
 	EditText emailFieldText;
 
 	@InjectView(R.id.password_editText)
@@ -30,7 +42,6 @@ public class LoginActivity extends CommonActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        loginButton.setOnClickListener(new LoginListener());
 	}
 
 	public void startOverviewActivity(View view) {
@@ -38,12 +49,9 @@ public class LoginActivity extends CommonActivity {
 		startActivity(intent);
 	}
 
-    private class LoginListener implements OnClickListener {
 
-        @Override
-        public void onClick(View view) {
+        public void loginCheck(View view) {
 
-            // Todo: When loginButton pressed, validate user input. Add a listener to loginButton
             Crypto crypto = new Crypto();
 
             EditText mailForm = (EditText)findViewById(R.id.email_editText);
@@ -51,11 +59,24 @@ public class LoginActivity extends CommonActivity {
             String email = mailForm.getText().toString();
             String password = passForm.getText().toString();
 
-            crypto.getHash(password);
+            String passwordHash = crypto.getHash(password);
 
+            Map<String, String> jsonParams = new HashMap<String, String>();
+            jsonParams.put("email", email);
+            jsonParams.put("password", passwordHash);
+
+            if(jsonHandler.jsonLoginMethod(jsonParams)){
+
+                aesKey = crypto.getKey(password);
+
+                Intent intent = new Intent(this, OverviewActivity.class);
+                startActivity(intent);
+
+            }else{
+
+            }
 
         }
-    }
 
 
 
