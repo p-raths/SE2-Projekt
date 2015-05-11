@@ -33,7 +33,7 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 	private static String TAG = OverviewActivity.class.getSimpleName();
 
     // Initalize request handler to get json data
-    private JsonRequestHandler en;
+    private JsonRequestHandler jsonHandler;
 
     //For local database implementation
     private CardDataSource datasource;
@@ -47,12 +47,12 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 		cardsListView = (ListView) findViewById(R.id.listView_overview);
 
         // For local database implementation
-        datasource = new CardDataSource(this);
-        datasource.open();
+//        datasource = new CardDataSource(this);
+//        datasource.open();
 
         // create jsonRequestHandler for getting data from server
-        en = new JsonRequestHandler(this);
-        en.jsonGetMethod();
+        jsonHandler = new JsonRequestHandler(this);
+        jsonHandler.jsonGetMethod();
 
 
 		cardsListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -67,12 +67,12 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 
     public void jsonResponseFinished(){
 //        datasource.open();
-//        datasource.syncCards(en.jsonGetList());
+//        datasource.syncCards(jsonGetList());
 //        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, datasource.getAllCards());
 //        datasource.close();
 //        cardsListView.setAdapter(cardAdapter);
 
-       cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, en.jsonGetList());
+       cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, jsonHandler.jsonGetList());
        cardsListView.setAdapter(cardAdapter);
     }
 
@@ -80,7 +80,7 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 	protected void onResume() {
 		super.onResume();
 
-        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, en.jsonGetList());
+        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, jsonHandler.jsonGetList());
         cardsListView.setAdapter(cardAdapter);
         this.cardAdapter.notifyDataSetChanged();
 	}
