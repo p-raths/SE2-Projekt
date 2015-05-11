@@ -30,7 +30,7 @@ public class JsonRequestHandler implements JsonEventInterface{
     // json array response url
     private final String URL_JSON_POST = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/PostFeed";
     private final String URL_JSON_GET = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/GetFeeds";
-    private final String URL_JSON_LOGIN = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/xxxxxxxxxxxxxxxxxxxx";
+    private final String URL_JSON_LOGIN = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/Login";
 
 
     private Card postCard;
@@ -142,15 +142,15 @@ public class JsonRequestHandler implements JsonEventInterface{
         JsonArrayRequest req = new JsonArrayRequest(URL_JSON_GET, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.d(TAG, response.toString());
+                Log.d("Response Get", response.toString());
                 try {
                     // Parsing json array response
                     // loop through each json object
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject card = (JSONObject) response.get(i);
-                        int id = card.getInt("id");
-                        String name = card.getString("name");
-                        String description = card.getString("description");
+                        int id = card.getInt("catId");
+                        String name = card.getString("catName");
+                        String description = card.getString("catDescription");
                         getCardList.add(new Card(id, name, description));
                     } ie.jsonResponseFinished();
                 } catch (JSONException e) { e.printStackTrace();}
@@ -158,7 +158,7 @@ public class JsonRequestHandler implements JsonEventInterface{
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                VolleyLog.d("Error Get", "Error: " + error.getMessage());
             }
         });
         // Adding request to request queue

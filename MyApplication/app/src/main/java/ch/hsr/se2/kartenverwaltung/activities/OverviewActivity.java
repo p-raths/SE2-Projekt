@@ -66,21 +66,21 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 	}
 
     public void jsonResponseFinished(){
-        datasource.open();
+//        datasource.open();
 //        datasource.syncCards(en.jsonGetList());
-        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, datasource.getAllCards());
-        datasource.close();
-        cardsListView.setAdapter(cardAdapter);
+//        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, datasource.getAllCards());
+//        datasource.close();
+//        cardsListView.setAdapter(cardAdapter);
 
-       // cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, en.jsonGetList());
-       // cardsListView.setAdapter(cardAdapter);
+       cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, en.jsonGetList());
+       cardsListView.setAdapter(cardAdapter);
     }
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 
-        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, datasource.getAllCards());
+        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, en.jsonGetList());
         cardsListView.setAdapter(cardAdapter);
         this.cardAdapter.notifyDataSetChanged();
 	}

@@ -39,7 +39,7 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
 	private Button cancelButton;
 
     // Initalize request handler to get json data
-    private JsonRequestHandler en;
+    private JsonRequestHandler jsonHandler;
 
     private CardDataSource datasource;
 
@@ -54,10 +54,10 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
 		super.onCreate(savedInstanceState);
 		saveButton.setOnClickListener(new CardSavelistener());
 
-        en = new JsonRequestHandler(this);
+        jsonHandler = new JsonRequestHandler(this);
 
-        datasource = new CardDataSource(this);
-        datasource.open();
+//        datasource = new CardDataSource(this);
+//        datasource.open();
 
 	}
 
@@ -73,14 +73,16 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
 
 		@Override
 		public void onClick(View view) {
-            datasource.createCard(inputFieldsToCard());
-            datasource.close();
+            jsonHandler.jsonAddCardMethod(inputFieldsToCard());
+
+//            datasource.createCard(inputFieldsToCard());
+//            datasource.close();
 			createOverViewActivity();
 		}
 	}
 
 	private Card inputFieldsToCard() {
-        Card card = new Card(-1, cardNameField.getText().toString(), cardDescriptionField.getText().toString());
+        Card card = new Card(0, cardNameField.getText().toString(), cardDescriptionField.getText().toString());
         Log.d("AddCardActivitygetP", "Id: " + card.getCardId() + " Name: " + card.getCardName() + " Description: " + card.getDescription());
         return card;
     }
