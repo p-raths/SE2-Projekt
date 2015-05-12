@@ -43,6 +43,8 @@ public class JsonRequestHandler implements JsonEventInterface{
 
     private Card cardToMap;
 
+    private String loginRespond = null;
+
 
     public JsonRequestHandler(JsonEventInterface event){
        getCardList = new ArrayList<Card>();
@@ -164,7 +166,10 @@ public class JsonRequestHandler implements JsonEventInterface{
         // Adding request to request queue
         JsonServiceHandler.getInstance().addToRequestQueue(req);}
 
-    public boolean jsonLoginMethod(Map<String, String> jsonParams) {
+    public String jsonLoginMethod(Map<String, String> jsonParams) {
+
+
+
         jsonPostParams = jsonParams;
 
 
@@ -172,7 +177,9 @@ public class JsonRequestHandler implements JsonEventInterface{
             @Override
             public void onResponse(String response) {
 
-                Log.d("JSONPostMethod", response.toString());
+                loginRespond=response.toString();
+                Log.d("JSONPostMethod", loginRespond);
+
                 ie.jsonResponseFinished();
             }
         }, new Response.ErrorListener() {
@@ -189,12 +196,7 @@ public class JsonRequestHandler implements JsonEventInterface{
         };
         JsonServiceHandler.getInstance().addToRequestQueue(req);
 
-        /*
-        *  ie.jsonResponseFinished() ist eine methode wo kein return statement hat?
-        * return ie.jsonResponseFinished();
-        *
-        */
-        return true;
+        return loginRespond;
     }
 
 }
