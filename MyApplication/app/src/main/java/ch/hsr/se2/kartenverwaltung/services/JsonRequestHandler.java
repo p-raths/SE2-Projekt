@@ -167,9 +167,11 @@ public class JsonRequestHandler implements JsonEventInterface{
     public boolean jsonLoginMethod(Map<String, String> jsonParams) {
         jsonPostParams = jsonParams;
 
+
         StringRequest req = new StringRequest(Request.Method.POST, URL_JSON_LOGIN, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
                 Log.d("JSONPostMethod", response.toString());
                 ie.jsonResponseFinished();
             }
