@@ -25,6 +25,7 @@ public class Crypto {
     }
 
 
+
     public SecretKeySpec getKey(String keyString) {
 
         byte[] key = null;
@@ -71,4 +72,17 @@ public class Crypto {
 
         return result;
     }
+
+    public String base64Encode(String input){
+
+        return null;
+
+    }
+
+    public String base64Decode(String input){
+
+        return null;
+
+    }
+
 }
