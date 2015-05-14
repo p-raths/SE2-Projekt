@@ -42,6 +42,8 @@ public class JsonRequestHandler implements JsonEventInterface{
 
     private Card cardToMap;
 
+    private String loginRespond = null;
+
 
     public JsonRequestHandler(JsonEventInterface event){
        getCardList = new ArrayList<Card>();
@@ -163,13 +165,20 @@ public class JsonRequestHandler implements JsonEventInterface{
         // Adding request to request queue
         JsonServiceHandler.getInstance().addToRequestQueue(req);}
 
-    public boolean jsonLoginMethod(Map<String, String> jsonParams) {
+    public String jsonLoginMethod(Map<String, String> jsonParams) {
+
+
+
         jsonPostParams = jsonParams;
+
 
         StringRequest req = new StringRequest(Request.Method.POST, URL_JSON_LOGIN, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("JSONPostMethod", response.toString());
+
+                loginRespond=response.toString();
+                Log.d("JSONPostMethod", loginRespond);
+
                 jsonEvent.jsonResponseFinished();
             }
         }, new Response.ErrorListener() {
@@ -185,7 +194,7 @@ public class JsonRequestHandler implements JsonEventInterface{
         };
         JsonServiceHandler.getInstance().addToRequestQueue(req);
 
-        return true;
+        return loginRespond;
     }
 
 }
