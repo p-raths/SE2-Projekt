@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_kartenverwaltung"
+        android:icon="@mipmap/ic_kartenverwaltung.png"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:name=".services.JsonServiceHandler">
