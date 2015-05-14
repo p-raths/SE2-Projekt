@@ -480,9 +480,7 @@ int menu menu_main 0x7f0d0004
 int menu menu_overview 0x7f0d0005
 int mipmap ic_kartenverwaltung 0x7f030000
 int mipmap ic_launcher 0x7f030001
-int mipmap ic_launcher_kartenvervaltung 0x7f030002
-int mipmap ic_launcher_kartenverwaltung 0x7f030003
-int mipmap kartenverwaltung_logo 0x7f030004
+int mipmap kartenverwaltung_logo 0x7f030002
 int string abc_action_bar_home_description 0x7f0b0000
 int string abc_action_bar_home_description_format 0x7f0b0001
 int string abc_action_bar_home_subtitle_description_format 0x7f0b0002
