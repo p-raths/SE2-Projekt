@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        >
+        android:gravity="fill_vertical">
 
 
         <TextView
@@ -47,16 +47,12 @@
             android:inputType="text"
             />
 
-        <EditText
-            android:id="@+id/card_date_textField"
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="5dp"
-            android:ems="10"
-            android:hint="@string/expiration_date"
-            android:inputType="date"
-            />
+            android:id="@+id/listView_card_add_attribute"
+            android:layout_gravity="center_horizontal"
+            android:headerDividersEnabled="false" />
 
         <Button
             android:id="@+id/save_button"

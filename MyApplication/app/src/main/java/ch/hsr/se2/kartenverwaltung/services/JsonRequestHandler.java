@@ -29,7 +29,7 @@ public class JsonRequestHandler implements JsonEventInterface{
 
     // json array response url
     private final String URL_JSON_POST = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/PostFeed";
-    private final String URL_JSON_GET = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/GetFeeds";
+    private final String URL_JSON_GET = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/GetCards";
     private final String URL_JSON_LOGIN = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/Login";
 
 
@@ -76,9 +76,8 @@ public class JsonRequestHandler implements JsonEventInterface{
             protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
                 Map<String, String> jsonParams = new HashMap<String, String>();
                 jsonParams.put("id", Integer.toString(cardToMap.getCardId()));
-                jsonParams.put("name", cardToMap.getCardName());
-                jsonParams.put("description", cardToMap.getDescription());
-                jsonParams.put("defaultattributes", "");
+                jsonParams.put("cardName", cardToMap.getCardName());
+                jsonParams.put("cardDescription", cardToMap.getDescription());
                 Log.d("AddCardActivitygetP", jsonParams.toString());
                 return jsonParams;
             }
@@ -151,9 +150,8 @@ public class JsonRequestHandler implements JsonEventInterface{
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject card = (JSONObject) response.get(i);
                         int id = card.getInt("catId");
-                        String name = card.getString("catName");
-                        String description = card.getString("catDescription");
-                        HashMap<Integer, Attribute> attributes = new HashMap<Integer, Attribute>();
+                        String name = card.getString("cardName");
+                        String description = card.getString("cardDescription");
                         getCardList.add(new Card(id, name, description));
                     } jsonEvent.jsonResponseFinished();
                 } catch (JSONException e) { e.printStackTrace();}

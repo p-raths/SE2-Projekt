@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.hsr.se2.kartenverwaltung.R;
+import ch.hsr.se2.kartenverwaltung.adapters.AttributeAdapter;
 import ch.hsr.se2.kartenverwaltung.adapters.CardAdapter;
+import ch.hsr.se2.kartenverwaltung.domain.Attribute;
 import ch.hsr.se2.kartenverwaltung.domain.Card;
 import ch.hsr.se2.kartenverwaltung.data.CardDataSource;
 import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
@@ -27,16 +29,14 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 
 	private CardAdapter cardAdapter;
 	private ListView cardsListView;
-	private ArrayList<Card> cardList;
+    private ArrayList<Card> cardList;
+
 
     // tag for Log.d
 	private static String TAG = OverviewActivity.class.getSimpleName();
 
     // Initalize request handler to get json data
     private JsonRequestHandler jsonHandler;
-
-    //For local database implementation
-    private CardDataSource datasource;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +46,6 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 		cardList = new ArrayList<Card>();
 		cardsListView = (ListView) findViewById(R.id.listView_overview);
 
-        // For local database implementation
-//        datasource = new CardDataSource(this);
-//        datasource.open();
-
-        // create jsonRequestHandler for getting data from server
         jsonHandler = new JsonRequestHandler(this);
         jsonHandler.jsonGetMethod();
 
@@ -83,6 +78,7 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
         cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, jsonHandler.jsonGetList());
         cardsListView.setAdapter(cardAdapter);
         this.cardAdapter.notifyDataSetChanged();
+
 	}
 
 	@Override

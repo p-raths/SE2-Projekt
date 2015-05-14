@@ -3,10 +3,14 @@ package ch.hsr.se2.kartenverwaltung.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import ch.hsr.se2.kartenverwaltung.R;
 import ch.hsr.se2.kartenverwaltung.domain.Card;
@@ -29,19 +33,15 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
 	@InjectView(R.id.card_description_field)
 	private EditText cardDescriptionField;
 
-	@InjectView(R.id.card_date_textField)
-	private EditText cardDateField;
-
 	@InjectView(R.id.save_button)
 	private Button saveButton;
 
 	@InjectView(R.id.cancel_button)
 	private Button cancelButton;
 
-    // Initalize request handler to get json data
     private JsonRequestHandler jsonHandler;
 
-    //private CardDataSource datasource;
+    private ListView attributesListView;
 
 	@Override
 	public void onStop() {
@@ -52,12 +52,12 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		saveButton.setOnClickListener(new CardSavelistener());
 
+        attributesListView = (ListView) findViewById(R.id.listView_card_add_attribute);
+        saveButton.setOnClickListener(new CardSavelistener());
+
+        saveButton.setOnClickListener(new CardSavelistener());
         jsonHandler = new JsonRequestHandler(this);
-
-//        datasource = new CardDataSource(this);
-//        datasource.open();
 
 	}
 
@@ -86,5 +86,6 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
         Log.d("AddCardActivitygetP", "Id: " + card.getCardId() + " Name: " + card.getCardName() + " Description: " + card.getDescription());
         return card;
     }
+
 }
 

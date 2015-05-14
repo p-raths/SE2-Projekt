@@ -181,6 +181,8 @@
     <string name="action_settings">Settings</string>
     <string name="action_shareCard">Teilen</string>
     <string name="app_name">CardStacker</string>
+    <string name="attribute_name">Attribut Name</string>
+    <string name="attribute_value">Attribut Wert</string>
     <string name="cancel_button">Abbrechen</string>
     <string name="card_description">Beschreibung</string>
     <string name="card_name">Karte Name</string>

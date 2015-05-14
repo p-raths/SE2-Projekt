@@ -31,4 +31,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="card_saved">Karte gespeichert</string>
 
+    <string name="attribute_value">Attribut Wert</string>
+    <string name="attribute_name">Attribut Name</string>
+
+
 </resources>

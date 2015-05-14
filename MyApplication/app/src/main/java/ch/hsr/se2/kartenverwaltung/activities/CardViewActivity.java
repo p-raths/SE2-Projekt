@@ -8,12 +8,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import ch.hsr.se2.kartenverwaltung.R;
+import ch.hsr.se2.kartenverwaltung.adapters.AttributeAdapter;
 import ch.hsr.se2.kartenverwaltung.domain.Attribute;
 import ch.hsr.se2.kartenverwaltung.domain.Card;
 import ch.hsr.se2.kartenverwaltung.data.CardDataSource;
@@ -27,6 +30,9 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
 	private EditText cardDescription;
     private EditText cardAttributes;
     private Card parseCard;
+    private AttributeAdapter attributeAdapter;
+    private ArrayList<Attribute> attributeList;
+    private ListView attributeListView;
 
     private static String TAG = CardViewActivity.class.getSimpleName();
 
@@ -42,17 +48,26 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
 
 		Bundle bundle = getIntent().getExtras();
 		cardName = (EditText) findViewById(R.id.editText_card_name);
-		cardDescription = (EditText) findViewById(R.id.editText_card_description);
-		cardId = bundle.getInt("card_id");
         cardName.setText(bundle.getString("card_name"));
+        cardId = bundle.getInt("card_id");
+        cardDescription = (EditText) findViewById(R.id.editText_card_description);
 		cardDescription.setText(bundle.getString("card_description"));
         Log.d("CardViewParams", Integer.toString(cardId) + bundle.getString("card_name") + bundle.getString("card_description"));
 
         jsonHandler = new JsonRequestHandler(this);
 
         parseCard = new Card(bundle.getInt("card_id"), bundle.getString("card_name"), bundle.getString("card_description") );
-        //datasource = new CardDataSource(this);
-        //datasource.open();
+
+        attributeList = new ArrayList<Attribute>();
+        attributeList.add(0, new Attribute("testName1", "testValue1"));
+        attributeList.add(1, new Attribute("testName2", "testValue2"));
+        attributeAdapter = new AttributeAdapter(this, R.layout.activity_card_view, attributeList);
+
+        attributeListView = (ListView) findViewById(R.id.listView_card_view_attribute);
+        attributeListView.setAdapter(attributeAdapter);
+
+        this.attributeAdapter.notifyDataSetChanged();
+
 	}
 
     public void jsonResponseFinished(){
