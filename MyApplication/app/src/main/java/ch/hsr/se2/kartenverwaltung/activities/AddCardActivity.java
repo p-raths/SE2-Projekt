@@ -41,7 +41,7 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
     // Initalize request handler to get json data
     private JsonRequestHandler jsonHandler;
 
-    private CardDataSource datasource;
+    //private CardDataSource datasource;
 
 	@Override
 	public void onStop() {

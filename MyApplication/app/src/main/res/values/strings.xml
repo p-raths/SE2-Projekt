@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kartenverwaltung</string>
+    <string name="app_name">CardStacker</string>
     <string name="action_settings">Settings</string>
     <string name="action_shareCard">Teilen</string>
     <string name="action_deleteCard">Löschen</string>
