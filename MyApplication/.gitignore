@@ -54,3 +54,4 @@ proguard/
 *.ear
 /MyApplication/app/src/androidTest/androidTest.iml
 /MyApplication/app/src/main/main.iml
+/MyApplication/build
