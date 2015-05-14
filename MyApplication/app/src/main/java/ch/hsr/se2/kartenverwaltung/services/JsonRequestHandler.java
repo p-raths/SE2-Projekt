@@ -1,6 +1,5 @@
 package ch.hsr.se2.kartenverwaltung.services;
 
-import android.app.ProgressDialog;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -37,7 +36,7 @@ public class JsonRequestHandler implements JsonEventInterface{
 
     private ArrayList<Card> getCardList;
 
-    private JsonEventInterface ie;
+    private JsonEventInterface jsonEvent;
 
     private Map<String, String> jsonPostParams;
 
@@ -46,7 +45,7 @@ public class JsonRequestHandler implements JsonEventInterface{
 
     public JsonRequestHandler(JsonEventInterface event){
        getCardList = new ArrayList<Card>();
-       ie=event;
+       jsonEvent =event;
     }
 
     public void jsonResponseFinished(){}
@@ -55,13 +54,14 @@ public class JsonRequestHandler implements JsonEventInterface{
         return getCardList;
     }
 
+    // method for insert / update / delete
     public void jsonAddCardMethod(Card card) {
         cardToMap = card;
         StringRequest req = new StringRequest(Request.Method.POST, URL_JSON_POST, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("JSONPostMethod", response.toString());
-                ie.jsonResponseFinished();
+                Log.d("JSONPostMethod", response);
+                jsonEvent.jsonResponseFinished();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -79,7 +79,6 @@ public class JsonRequestHandler implements JsonEventInterface{
                 Log.d("AddCardActivitygetP", jsonParams.toString());
                 return jsonParams;
             }
-            ;
         };
         JsonServiceHandler.getInstance().addToRequestQueue(req);}
 
@@ -88,8 +87,8 @@ public class JsonRequestHandler implements JsonEventInterface{
         StringRequest req = new StringRequest(Request.Method.POST, URL_JSON_POST, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("JSONPostMethod", response.toString());
-                ie.jsonResponseFinished();
+                Log.d("JSONPostMethod", response);
+                jsonEvent.jsonResponseFinished();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -106,7 +105,7 @@ public class JsonRequestHandler implements JsonEventInterface{
                 jsonParams.put("defaultattributes", "");
                 Log.d("AddCardActivitygetP", jsonParams.toString());
                 return jsonParams;
-            };};
+            }};
         JsonServiceHandler.getInstance().addToRequestQueue(req);}
 
     public boolean jsonUpdateCardMethod(Card card){
@@ -116,7 +115,7 @@ public class JsonRequestHandler implements JsonEventInterface{
             @Override
             public void onResponse(String response) {
                 Log.d("JSONPostMethod", response.toString());
-                ie.jsonResponseFinished();
+                jsonEvent.jsonResponseFinished();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -152,7 +151,7 @@ public class JsonRequestHandler implements JsonEventInterface{
                         String name = card.getString("catName");
                         String description = card.getString("catDescription");
                         getCardList.add(new Card(id, name, description));
-                    } ie.jsonResponseFinished();
+                    } jsonEvent.jsonResponseFinished();
                 } catch (JSONException e) { e.printStackTrace();}
             }
         }, new Response.ErrorListener() {
@@ -171,7 +170,7 @@ public class JsonRequestHandler implements JsonEventInterface{
             @Override
             public void onResponse(String response) {
                 Log.d("JSONPostMethod", response.toString());
-                ie.jsonResponseFinished();
+                jsonEvent.jsonResponseFinished();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -183,15 +182,9 @@ public class JsonRequestHandler implements JsonEventInterface{
             protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
                 return jsonPostParams;
             }
-            ;
         };
         JsonServiceHandler.getInstance().addToRequestQueue(req);
 
-        /*
-        *  ie.jsonResponseFinished() ist eine methode wo kein return statement hat?
-        * return ie.jsonResponseFinished();
-        *
-        */
         return true;
     }
 

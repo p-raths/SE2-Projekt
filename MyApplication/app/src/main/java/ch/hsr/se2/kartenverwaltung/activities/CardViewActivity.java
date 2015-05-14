@@ -8,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ch.hsr.se2.kartenverwaltung.R;
 import ch.hsr.se2.kartenverwaltung.domain.Card;
 import ch.hsr.se2.kartenverwaltung.data.CardDataSource;
@@ -24,7 +27,7 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
     private static String TAG = CardViewActivity.class.getSimpleName();
 
     // Initalize request handler to get json data
-    private JsonRequestHandler en;
+    private JsonRequestHandler jsonHandler;
 
     private CardDataSource datasource;
 
@@ -41,11 +44,11 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
 		cardDescription.setText(bundle.getString("card_description"));
         Log.d("CardViewParams", Integer.toString(cardId) + bundle.getString("card_name") + bundle.getString("card_description"));
 
-        en = new JsonRequestHandler(this);
+        jsonHandler = new JsonRequestHandler(this);
 
         parseCard = new Card(bundle.getInt("card_id"), bundle.getString("card_name"), bundle.getString("card_description") );
-        datasource = new CardDataSource(this);
-        datasource.open();
+        //datasource = new CardDataSource(this);
+        //datasource.open();
 	}
 
     public void jsonResponseFinished(){
@@ -71,7 +74,7 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
 			return true;
 		case R.id.action_deleteCard:
             datasource.deleteCard(parseCard);
-            //en.jsonPostMethod(inputFieldsToMap());
+            jsonHandler.jsonAddCardMethod(inputFieldsToMap());
             createOverViewActivity();
 			return true;
 		case R.id.action_logout:
@@ -89,5 +92,11 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
     private void createOverViewActivity() {
         Intent intent = new Intent(this, OverviewActivity.class);
         startActivity(intent);
+    }
+
+    private Card inputFieldsToCard() {
+        Card card = new Card(cardId, "", "");
+        Log.d("AddCardActivitygetP", "Id: " + cardId + " Name: " + card.getCardName() + " Description: " + card.getDescription());
+        return card;
     }
 }
