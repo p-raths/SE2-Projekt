@@ -122,9 +122,7 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
             intent.putExtra("card_id", card.getCardId());
             intent.putExtra("card_name", card.getCardName());
 			intent.putExtra("card_description", card.getDescription());
-            System.out.println(card.getCardId());
-            System.out.println(card.getCardName());
-			System.out.println(card.getDescription());
+
 			startActivity(intent);
 		}
 	}

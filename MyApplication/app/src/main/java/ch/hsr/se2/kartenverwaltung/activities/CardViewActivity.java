@@ -6,12 +6,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import ch.hsr.se2.kartenverwaltung.R;
+import ch.hsr.se2.kartenverwaltung.domain.Attribute;
 import ch.hsr.se2.kartenverwaltung.domain.Card;
 import ch.hsr.se2.kartenverwaltung.data.CardDataSource;
 import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
@@ -20,8 +23,9 @@ import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
 public class CardViewActivity extends ActionBarActivity implements JsonEventInterface {
 
     private int cardId;
-	private TextView cardName;
-	private TextView cardDescription;
+	private EditText cardName;
+	private EditText cardDescription;
+    private EditText cardAttributes;
     private Card parseCard;
 
     private static String TAG = CardViewActivity.class.getSimpleName();
@@ -37,8 +41,8 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
 		setContentView(R.layout.activity_card_view);
 
 		Bundle bundle = getIntent().getExtras();
-		cardName = (TextView) findViewById(R.id.cardItem_name_textView);
-		cardDescription = (TextView) findViewById(R.id.cardItem_description_textView);
+		cardName = (EditText) findViewById(R.id.editText_card_name);
+		cardDescription = (EditText) findViewById(R.id.editText_card_description);
 		cardId = bundle.getInt("card_id");
         cardName.setText(bundle.getString("card_name"));
 		cardDescription.setText(bundle.getString("card_description"));
@@ -70,11 +74,13 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
 			// TODO complete
 			return true;
 		case R.id.action_editCard:
-			// TODO complete
-			return true;
+            findViewById(R.id.editText_card_name).setEnabled(true);
+            findViewById(R.id.editText_card_description).setEnabled(true);
+            findViewById(R.id.button_save_edited_card).setVisibility(View.VISIBLE);
+            return true;
 		case R.id.action_deleteCard:
-            datasource.deleteCard(parseCard);
-            jsonHandler.jsonAddCardMethod(inputFieldsToMap());
+            //datasource.deleteCard(parseCard);
+            jsonHandler.jsonAddCardMethod(inputFieldsToCard());
             createOverViewActivity();
 			return true;
 		case R.id.action_logout:
@@ -96,7 +102,8 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
 
     private Card inputFieldsToCard() {
         Card card = new Card(cardId, "", "");
-        Log.d("AddCardActivitygetP", "Id: " + cardId + " Name: " + card.getCardName() + " Description: " + card.getDescription());
+        card.setAttribut(new Attribute("",""));
+        Log.d("AddCardActivitygetP", "Id: " + cardId + " Name: " + "" + " Description: " + "");
         return card;
     }
 }

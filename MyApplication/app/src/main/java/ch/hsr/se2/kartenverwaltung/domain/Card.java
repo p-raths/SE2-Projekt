@@ -60,6 +60,8 @@ public class Card {
 		return this.cardAttributesMap.get(attributeKey);
 	}
 
+
+
 	public Collection<Location> getAllPositions() {
 		return this.locationHashMap.values();
 	}

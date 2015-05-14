@@ -1347,11 +1347,9 @@ containing a value of this type.
         public static final int additional_line_cardItem_editText=0x7f090048;
         public static final int always=0x7f090016;
         public static final int beginning=0x7f090013;
+        public static final int button_save_edited_card=0x7f09004d;
         public static final int cancel_button=0x7f090044;
-        public static final int cardItem_date_testEdit=0x7f09004d;
-        public static final int cardItem_description_textView=0x7f09004c;
         public static final int cardItem_gridLayout=0x7f090049;
-        public static final int cardItem_name_textView=0x7f09004b;
         public static final int card_date_textField=0x7f090042;
         public static final int card_description_field=0x7f090041;
         public static final int card_name=0x7f090040;
@@ -1363,6 +1361,8 @@ containing a value of this type.
         public static final int dialog=0x7f09001b;
         public static final int disableHome=0x7f09000c;
         public static final int dropdown=0x7f09001c;
+        public static final int editText_card_description=0x7f09004c;
+        public static final int editText_card_name=0x7f09004b;
         public static final int edit_query=0x7f090033;
         public static final int email_editText=0x7f090050;
         public static final int end=0x7f090014;

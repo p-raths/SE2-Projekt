@@ -373,11 +373,9 @@ int id activity_chooser_view_content 0x7f090021
 int id additional_line_cardItem_editText 0x7f090048
 int id always 0x7f090016
 int id beginning 0x7f090013
+int id button_save_edited_card 0x7f09004d
 int id cancel_button 0x7f090044
-int id cardItem_date_testEdit 0x7f09004d
-int id cardItem_description_textView 0x7f09004c
 int id cardItem_gridLayout 0x7f090049
-int id cardItem_name_textView 0x7f09004b
 int id card_date_textField 0x7f090042
 int id card_description_field 0x7f090041
 int id card_name 0x7f090040
@@ -389,6 +387,8 @@ int id default_activity_button 0x7f090024
 int id dialog 0x7f09001b
 int id disableHome 0x7f09000c
 int id dropdown 0x7f09001c
+int id editText_card_description 0x7f09004c
+int id editText_card_name 0x7f09004b
 int id edit_query 0x7f090033
 int id email_editText 0x7f090050
 int id end 0x7f090014

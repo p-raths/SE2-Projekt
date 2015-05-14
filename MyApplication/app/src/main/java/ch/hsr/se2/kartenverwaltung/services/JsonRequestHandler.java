@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.hsr.se2.kartenverwaltung.domain.Attribute;
 import ch.hsr.se2.kartenverwaltung.domain.Card;
 
 /**
@@ -77,7 +78,7 @@ public class JsonRequestHandler implements JsonEventInterface{
                 jsonParams.put("id", Integer.toString(cardToMap.getCardId()));
                 jsonParams.put("name", cardToMap.getCardName());
                 jsonParams.put("description", cardToMap.getDescription());
-                jsonParams.put("defaultattributes", "Imanattribute");
+                jsonParams.put("defaultattributes", "");
                 Log.d("AddCardActivitygetP", jsonParams.toString());
                 return jsonParams;
             }
@@ -152,6 +153,7 @@ public class JsonRequestHandler implements JsonEventInterface{
                         int id = card.getInt("catId");
                         String name = card.getString("catName");
                         String description = card.getString("catDescription");
+                        HashMap<Integer, Attribute> attributes = new HashMap<Integer, Attribute>();
                         getCardList.add(new Card(id, name, description));
                     } jsonEvent.jsonResponseFinished();
                 } catch (JSONException e) { e.printStackTrace();}
