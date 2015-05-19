@@ -167,8 +167,6 @@ public class JsonRequestHandler implements JsonEventInterface{
 
     public String jsonLoginMethod(Map<String, String> jsonParams) {
 
-
-
         jsonPostParams = jsonParams;
 
 
