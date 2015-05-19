@@ -1,6 +1,9 @@
 package ch.hsr.se2.kartenverwaltung.services;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -17,6 +20,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.hsr.se2.kartenverwaltung.activities.LoginActivity;
+import ch.hsr.se2.kartenverwaltung.activities.OverviewActivity;
 import ch.hsr.se2.kartenverwaltung.domain.Attribute;
 import ch.hsr.se2.kartenverwaltung.domain.Card;
 
@@ -50,6 +55,8 @@ public class JsonRequestHandler implements JsonEventInterface{
        getCardList = new ArrayList<Card>();
        jsonEvent =event;
     }
+
+
 
     public void jsonResponseFinished(){}
 
@@ -165,7 +172,7 @@ public class JsonRequestHandler implements JsonEventInterface{
         // Adding request to request queue
         JsonServiceHandler.getInstance().addToRequestQueue(req);}
 
-    public String jsonLoginMethod(Map<String, String> jsonParams) {
+    public void jsonLoginMethod(Map<String, String> jsonParams, final Activity fActivity, View view) {
 
         jsonPostParams = jsonParams;
 
@@ -174,10 +181,15 @@ public class JsonRequestHandler implements JsonEventInterface{
             @Override
             public void onResponse(String response) {
 
+
                 loginRespond=response.toString();
                 Log.d("JSONPostMethod", loginRespond);
+                //jsonEvent.jsonResponseFinished();
 
-                jsonEvent.jsonResponseFinished();
+                LoginActivity login = new LoginActivity();
+
+                login.loginMethod(loginRespond);
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -192,7 +204,6 @@ public class JsonRequestHandler implements JsonEventInterface{
         };
         JsonServiceHandler.getInstance().addToRequestQueue(req);
 
-        return loginRespond;
     }
 
 }

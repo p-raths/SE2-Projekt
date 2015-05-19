@@ -13,11 +13,11 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class Crypto {
 
-    public String getHash(String text) {
+    public byte[] getHash(String text) {
         try {
             byte[] toHash = (text).getBytes("UTF-8");
             MessageDigest sha = MessageDigest.getInstance("SHA-1");
-            return new String(sha.digest(toHash));
+            return sha.digest(toHash);
         } catch (Throwable e) {
             e.printStackTrace();
         }
