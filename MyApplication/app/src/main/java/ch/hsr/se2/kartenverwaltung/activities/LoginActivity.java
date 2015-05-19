@@ -66,16 +66,17 @@ public class LoginActivity extends CommonActivity {
 		jsonParams.put("email", email);
 		jsonParams.put("password", passwordHash);
 
-		//jsonHandler.jsonLoginMethod(jsonParams);
-		Intent intent = new Intent(this, OverviewActivity.class);
+		String respons = jsonHandler.jsonLoginMethod(jsonParams);
 
-		startActivity(intent);
 
-		/*
+		aesKey = crypto.getKey(password);
+		Log.d("Login", "Successfull");
 
-		if(response != null){
 
-			aesKey = crypto.getKey(password);
+
+		if(respons != null){
+
+
 
 			Intent intent = new Intent(this, OverviewActivity.class);
 			Log.d("Login", "Successfull");
@@ -85,12 +86,12 @@ public class LoginActivity extends CommonActivity {
 			Log.d("Login", "Failed");;
 
 		}
-		*/
 
 
 
-		//Intent intent = new Intent(this, OverviewActivity.class);
-		//startActivity(intent);
+
+		Intent intent = new Intent(this, OverviewActivity.class);
+		startActivity(intent);
 	}
 
 	// Todo: When loginButton pressed, validate user input. Add a listener to loginButton
