@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_attributeDetail"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:background="?android:attr/activatedBackgroundIndicator"
+    android:orientation="horizontal"
+    android:padding="6dip"
+    tools:context="ch.hsr.se2.kartenverwaltung.activities.CardDetailActivity"
+    >
+
+    <ExpandableListView
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/expandableListView_attributetype" />
+
+    <EditText
+        android:id="@+id/editText_attribute_detail_name"
+        android:layout_weight="0.32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal|center|start"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="start"
+        android:text="@string/attribute_name"
+        android:textSize="16sp"
+        />
+
+    <EditText
+        android:id="@+id/editText_attribute_detail_value"
+        android:layout_weight="0.32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal|center|start"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="20dp"
+        android:gravity="start"
+        android:text="@string/attribute_value"
+        android:textSize="16sp"
+        />
+
+
+</LinearLayout>
