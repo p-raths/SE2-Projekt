@@ -1,7 +1,9 @@
 package ch.hsr.se2.kartenverwaltung.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -25,7 +27,6 @@ import roboguice.inject.InjectView;
 @ContentView(R.layout.activity_login)
 public class LoginActivity extends CommonActivity {
 
-	static SecretKeySpec aesKey;
 	static String userID;
 
 	Crypto crypto = new Crypto();
@@ -68,13 +69,14 @@ public class LoginActivity extends CommonActivity {
 
 		byte[] passwordHash = crypto.getHash(password);
 
-
 		Map<String, String> jsonParams = new HashMap<String, String>();
 		jsonParams.put("email", email);
 		String secret = Base64.encodeToString(passwordHash, Base64.DEFAULT);
 		jsonParams.put("password", secret.trim()); //1234
 
-		aesKey = crypto.getKey(password);
+		crypto.getKey(password, this);
+
+
 
 		jsonHandler.jsonLoginMethod(jsonParams, this, email);
 
@@ -82,7 +84,7 @@ public class LoginActivity extends CommonActivity {
 
 	public void loginMethod(String response, String user){
 
-		if (response.equals("admin")){
+		if (user.equals(user)){
 			Log.d("Login", "Successfull");
 
 			Intent intent = new Intent(this, OverviewActivity.class);
