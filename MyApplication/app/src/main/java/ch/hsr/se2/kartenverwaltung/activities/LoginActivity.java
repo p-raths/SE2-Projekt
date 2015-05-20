@@ -72,18 +72,17 @@ public class LoginActivity extends CommonActivity {
 		Map<String, String> jsonParams = new HashMap<String, String>();
 		jsonParams.put("email", email);
 		String secret = Base64.encodeToString(passwordHash, Base64.DEFAULT);
-		jsonParams.put("password", secret); //1234
+		jsonParams.put("password", secret.trim()); //1234
 
 		aesKey = crypto.getKey(password);
 
-		jsonHandler.jsonLoginMethod(jsonParams, this);
-
+		jsonHandler.jsonLoginMethod(jsonParams, this, email);
 
 	}
 
-	public void loginMethod(String response){
+	public void loginMethod(String response, String user){
 
-		if (response.equals("Login-attempt failed!")){
+		if (response.equals("admin")){
 			Log.d("Login", "Successfull");
 
 			Intent intent = new Intent(this, OverviewActivity.class);
