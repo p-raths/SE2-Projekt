@@ -76,10 +76,8 @@ public class LoginActivity extends CommonActivity {
 
 		aesKey = crypto.getKey(password);
 
-		jsonHandler.jsonLoginMethod(jsonParams, this, view);
+		jsonHandler.jsonLoginMethod(jsonParams, this);
 
-		Intent intent = new Intent(this, OverviewActivity.class);
-		startActivity(intent);
 
 	}
 
@@ -88,8 +86,8 @@ public class LoginActivity extends CommonActivity {
 		if (response.equals("Login-attempt failed!")){
 			Log.d("Login", "Successfull");
 
-			//Intent intent = new Intent(this, OverviewActivity.class);
-			//startActivity(intent);
+			Intent intent = new Intent(this, OverviewActivity.class);
+			startActivity(intent);
 
 		}else{
 			Log.d("Login", "Failed");

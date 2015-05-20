@@ -172,7 +172,7 @@ public class JsonRequestHandler implements JsonEventInterface{
         // Adding request to request queue
         JsonServiceHandler.getInstance().addToRequestQueue(req);}
 
-    public void jsonLoginMethod(Map<String, String> jsonParams, final Activity fActivity, View view) {
+    public void jsonLoginMethod(Map<String, String> jsonParams, final Activity fActivity) {
 
         jsonPostParams = jsonParams;
 
@@ -186,7 +186,8 @@ public class JsonRequestHandler implements JsonEventInterface{
                 Log.d("JSONPostMethod", loginRespond);
                 //jsonEvent.jsonResponseFinished();
 
-                LoginActivity login = new LoginActivity();
+
+                LoginActivity login = (LoginActivity)fActivity;
 
                 login.loginMethod(loginRespond);
 
