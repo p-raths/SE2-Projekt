@@ -20,6 +20,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     public ApplicationTest() {
         super(Application.class);
+        hashTest();
 
     }
 
@@ -31,14 +32,14 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     static void cryptoTest(){
         Crypto c = new Crypto();
-        SecretKeySpec aesKey = c.getKey("password");
+        //SecretKeySpec aesKey = c.getKey("password");
 
-        String text = "This is a Test";
+        //String text = "This is a Test";
 
-        String encrypted = c.encrypt(text, aesKey);
-        String decrypted = c.decrypt(encrypted, aesKey);
+        //String encrypted = c.encrypt(text, aesKey);
+        //String decrypted = c.decrypt(encrypted, aesKey);
 
-        assertEquals(decrypted, "This is a Test");
+        //assertEquals(decrypted, "This is a Test");
     }
 
     static void loginTest(){
