@@ -1,5 +1,7 @@
 package ch.hsr.se2.kartenverwaltung.data;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Base64;
 
 import java.security.MessageDigest;
@@ -13,11 +15,11 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class Crypto {
 
-    public String getHash(String text) {
+    public byte[] getHash(String text) {
         try {
             byte[] toHash = (text).getBytes("UTF-8");
             MessageDigest sha = MessageDigest.getInstance("SHA-1");
-            return new String(sha.digest(toHash));
+            return sha.digest(toHash);
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -26,7 +28,7 @@ public class Crypto {
 
 
 
-    public SecretKeySpec getKey(String keyString) {
+    public void getKey(String keyString, Context context) {
 
         byte[] key = null;
         try {
@@ -38,7 +40,17 @@ public class Crypto {
             e.printStackTrace();
         }
 
-        return new SecretKeySpec(key, "AES");
+
+
+        SharedPreferences prefs = context.getSharedPreferences("Kartenverwaltung", 0);
+        String stringSecretKey = Base64.encodeToString(
+                key, Base64.DEFAULT);
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("SECRET_KEY", stringSecretKey);
+        editor.commit();
+
+
     }
 
     public String encrypt(String text, SecretKeySpec key) {
@@ -73,16 +85,6 @@ public class Crypto {
         return result;
     }
 
-    public String base64Encode(String input){
 
-        return null;
-
-    }
-
-    public String base64Decode(String input){
-
-        return null;
-
-    }
 
 }

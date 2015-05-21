@@ -1,6 +1,8 @@
 package ch.hsr.se2.kartenverwaltung.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.SparseBooleanArray;
@@ -104,7 +106,19 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 	}
 
 	private void doLogout() {
-		startActivity(new Intent(this, LoginActivity.class));
+
+		Context context=this;
+		SharedPreferences myPrefs = context.getSharedPreferences("Kartenverwaltung",
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = myPrefs.edit();
+		editor.clear();
+		editor.commit();
+
+		Intent i = new Intent(this,LoginActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		i.putExtra("EXIT", true);
+		startActivity(i);
+
 	}
 
 	private void startAddActivity() {
