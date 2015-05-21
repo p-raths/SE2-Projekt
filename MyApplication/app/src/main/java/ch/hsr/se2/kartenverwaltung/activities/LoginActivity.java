@@ -70,7 +70,7 @@ public class LoginActivity extends CommonActivity {
 		byte[] passwordHash = crypto.getHash(password);
 
 		Map<String, String> jsonParams = new HashMap<String, String>();
-		jsonParams.put("email", email);
+		jsonParams.put("username", email);
 		String secret = Base64.encodeToString(passwordHash, Base64.DEFAULT);
 		jsonParams.put("password", secret.trim()); //1234
 
