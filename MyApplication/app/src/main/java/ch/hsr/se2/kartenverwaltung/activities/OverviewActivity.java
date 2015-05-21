@@ -106,7 +106,7 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 	}
 
 	private void doLogout() {
-		
+
 		Context context=this;
 		SharedPreferences myPrefs = context.getSharedPreferences("Kartenverwaltung",
 				Context.MODE_PRIVATE);
@@ -114,7 +114,11 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 		editor.clear();
 		editor.commit();
 
-		startActivity(new Intent(this, LoginActivity.class));
+		Intent i = new Intent(this,LoginActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		i.putExtra("EXIT", true);
+		startActivity(i);
+
 	}
 
 	private void startAddActivity() {
