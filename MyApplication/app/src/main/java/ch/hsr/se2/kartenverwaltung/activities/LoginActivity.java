@@ -60,7 +60,7 @@ public class LoginActivity extends CommonActivity {
 
 	}
 
-	public void  loginMethod(View view) {
+	public void  login(View view) {
 
 		EditText mailForm = (EditText)findViewById(R.id.email_editText);
 		EditText passForm = (EditText)findViewById(R.id.password_editText);
@@ -70,6 +70,7 @@ public class LoginActivity extends CommonActivity {
 		byte[] passwordHash = crypto.getHash(password);
 
 		Map<String, String> jsonParams = new HashMap<String, String>();
+		jsonParams.put("usrId", "0");
 		jsonParams.put("usrName", email);
 		String secret = Base64.encodeToString(passwordHash, Base64.DEFAULT);
 		jsonParams.put("usrPassword", secret.trim()); //1234
@@ -79,6 +80,9 @@ public class LoginActivity extends CommonActivity {
 
 
 		jsonHandler.jsonLoginMethod(jsonParams, this, email);
+
+		Intent intent = new Intent(this, OverviewActivity.class);
+		startActivity(intent);
 
 	}
 
@@ -92,8 +96,8 @@ public class LoginActivity extends CommonActivity {
 			editor.putString("userId", response);
 			editor.commit();
 
-			Intent intent = new Intent(this, OverviewActivity.class);
-			startActivity(intent);
+			//Intent intent = new Intent(this, OverviewActivity.class);
+			//startActivity(intent);
 
 		}else{
 			Log.d("Login", "Failed");
