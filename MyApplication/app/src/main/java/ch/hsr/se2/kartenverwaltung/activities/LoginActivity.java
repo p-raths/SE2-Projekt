@@ -70,9 +70,9 @@ public class LoginActivity extends CommonActivity {
 		byte[] passwordHash = crypto.getHash(password);
 
 		Map<String, String> jsonParams = new HashMap<String, String>();
-		jsonParams.put("username", email);
+		jsonParams.put("usrName", email);
 		String secret = Base64.encodeToString(passwordHash, Base64.DEFAULT);
-		jsonParams.put("password", secret.trim()); //1234
+		jsonParams.put("usrPassword", secret.trim()); //1234
 
 		crypto.getKey(password, this);
 
@@ -84,8 +84,13 @@ public class LoginActivity extends CommonActivity {
 
 	public void loginMethod(String response, String user){
 
-		if (user.equals(user)){
+		if (!response.equals("Login-Failed")){
 			Log.d("Login", "Successfull");
+
+			SharedPreferences prefs = this.getSharedPreferences("Kartenverwaltung", 0);
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putString("userId", response);
+			editor.commit();
 
 			Intent intent = new Intent(this, OverviewActivity.class);
 			startActivity(intent);
