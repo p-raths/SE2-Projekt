@@ -181,11 +181,8 @@ public class JsonRequestHandler implements JsonEventInterface{
             @Override
             public void onResponse(String response) {
 
-
                 loginRespond=response.toString();
                 Log.d("JSONPostMethod", loginRespond);
-                //jsonEvent.jsonResponseFinished();
-
 
                 LoginActivity login = (LoginActivity)fActivity;
 

@@ -30,18 +30,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         assertEquals(hash, c.getHash("This is a Test")); //gleicher text -> glecher hash
     }
 
-    static void cryptoTest(){
-        Crypto c = new Crypto();
-        //SecretKeySpec aesKey = c.getKey("password");
-
-        //String text = "This is a Test";
-
-        //String encrypted = c.encrypt(text, aesKey);
-        //String decrypted = c.decrypt(encrypted, aesKey);
-
-        //assertEquals(decrypted, "This is a Test");
-    }
-
     static void loginTest(){
 
     }
