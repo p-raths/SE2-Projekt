@@ -11,8 +11,9 @@ public class Card {
 	private int cardId;
 	private String cardName;
 	private String description;
-	private Date creationDate;
-	private HashMap<Integer, Attribute> cardAttributesMap;
+    private String cardAttributes;
+    private Date creationDate;
+    private HashMap<Integer, Attribute> cardAttributesMap;
 	private HashMap<Integer, Location> locationHashMap;
     private int cardRevision;
 
@@ -21,6 +22,7 @@ public class Card {
         this.cardName = name;
 		this.description = description;
 		this.creationDate = new Date();
+        this.cardAttributes = "";
 		this.cardAttributesMap = new HashMap<>();
 		this.locationHashMap = new HashMap<>();
 	    this.cardRevision = 1;
@@ -55,9 +57,9 @@ public class Card {
 		return this.cardAttributesMap.values();
 	}
 
-	public Attribute getAttribut(final int attributeKey) {
+	public String getAttribut() {
 
-		return this.cardAttributesMap.get(attributeKey);
+		return this.cardAttributes;
 	}
 
 	public Collection<Location> getAllPositions() {
