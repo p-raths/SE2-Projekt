@@ -44,11 +44,12 @@ public class JsonRequestHandler implements JsonEventInterface{
 
     private JsonEventInterface jsonEvent;
 
-    private Map<String, String> jsonPostParams;
+    private Map<String, String> jsonAddParams;
+    private Map<String, String> jsonLoginParams;
 
     private Card cardToMap;
 
-    private String loginRespond = null;
+    private String loginRespond = "";
 
 
     public JsonRequestHandler(JsonEventInterface event){
@@ -70,7 +71,7 @@ public class JsonRequestHandler implements JsonEventInterface{
         StringRequest req = new StringRequest(Request.Method.POST, URL_JSON_POST, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("JSONPostMethod", response);
+                Log.d("JSONAddCard", response);
                 jsonEvent.jsonResponseFinished();
             }
         }, new Response.ErrorListener() {
@@ -85,6 +86,11 @@ public class JsonRequestHandler implements JsonEventInterface{
                 jsonParams.put("id", Integer.toString(cardToMap.getCardId()));
                 jsonParams.put("cardName", cardToMap.getCardName());
                 jsonParams.put("cardDescription", cardToMap.getDescription());
+                jsonParams.put("cardRevision", "0");
+                jsonParams.put("attributes", "[]");
+                jsonParams.put("user", ":{\"usrId\":1,\"usrPassword\":\"qUqP5cyxm6YcTAhz05Hph5gvu9M=\",\"usrName\":\"admin\"}");
+                jsonParams.put("cardType", ":{\"catDefaultAttributes\":\"DefaultAttributes\",\"catDescription\":\"CardTypeDescriptionTest\",\"catId\":1,\"catName\":\"CardTypeTest\"}");
+
                 Log.d("AddCardActivitygetP", jsonParams.toString());
                 return jsonParams;
             }
@@ -156,11 +162,13 @@ public class JsonRequestHandler implements JsonEventInterface{
                     // loop through each json object
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject card = (JSONObject) response.get(i);
-                        int id = card.getInt("catId");
+                        int id = card.getInt("id");
                         String name = card.getString("cardName");
                         String description = card.getString("cardDescription");
                         getCardList.add(new Card(id, name, description));
-                    } jsonEvent.jsonResponseFinished();
+                    }
+                    Log.d("cardlist", getCardList.toString());
+                    jsonEvent.jsonResponseFinished();
                 } catch (JSONException e) { e.printStackTrace();}
             }
         }, new Response.ErrorListener() {
@@ -174,15 +182,15 @@ public class JsonRequestHandler implements JsonEventInterface{
 
     public void jsonLoginMethod(Map<String, String> jsonParams, final Activity fActivity, final String user) {
 
-        jsonPostParams = jsonParams;
-
+        jsonLoginParams = jsonParams;
 
         StringRequest req = new StringRequest(Request.Method.POST, URL_JSON_LOGIN, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
+                Log.d("JSONLoginRespo", response);
                 loginRespond=response.toString();
-                Log.d("JSONPostMethod", loginRespond);
+
 
                 LoginActivity login = (LoginActivity)fActivity;
 
@@ -197,13 +205,12 @@ public class JsonRequestHandler implements JsonEventInterface{
         }) {
             @Override
             protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
-                return jsonPostParams;
+                Log.d("JSONLoginParams", jsonLoginParams.toString());
+                return jsonLoginParams;
             }
         };
         JsonServiceHandler.getInstance().addToRequestQueue(req);
-
     }
-
 }
 
 

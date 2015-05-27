@@ -83,10 +83,10 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_shareCard:
-			// TODO complete
+			// not implemented
 			return true;
 		case R.id.action_settings:
-			// TODO complete
+            // not implemented
 			return true;
 		case R.id.action_editCard:
             findViewById(R.id.editText_card_name).setEnabled(true);
@@ -94,8 +94,8 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
             findViewById(R.id.button_save_edited_card).setVisibility(View.VISIBLE);
             return true;
 		case R.id.action_deleteCard:
-            //datasource.deleteCard(parseCard);
-            jsonHandler.jsonAddCardMethod(inputFieldsToCard());
+            //jsonHandler.jsonAddCardMethod(inputFieldsToCard());
+            jsonHandler.jsonDeleteCardMethod(inputFieldsToCard());
             createOverViewActivity();
 			return true;
 		case R.id.action_logout:
