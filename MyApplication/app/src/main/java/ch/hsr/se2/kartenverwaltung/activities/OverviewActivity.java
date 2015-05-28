@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.hsr.se2.kartenverwaltung.R;
-import ch.hsr.se2.kartenverwaltung.adapters.AttributeAdapter;
 import ch.hsr.se2.kartenverwaltung.adapters.CardAdapter;
+import ch.hsr.se2.kartenverwaltung.domain.Card;
 import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
 import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
 
@@ -28,7 +28,7 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 
 	private CardAdapter cardAdapter;
 	private ListView cardsListView;
-    private ArrayList<domain.Card> cardList;
+    private ArrayList<Card> cardList;
 
 
     // tag for Log.d
@@ -42,7 +42,7 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_overview);
 
-		cardList = new ArrayList<domain.Card>();
+		cardList = new ArrayList<Card>();
 		cardsListView = (ListView) findViewById(R.id.listView_overview);
 
         jsonHandler = new JsonRequestHandler(this);
@@ -117,9 +117,9 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 	}
 
 	private void showCardDetail() {
-		List<domain.Card> list = getSelectedCards();
+		List<Card> list = getSelectedCards();
 		Intent intent = new Intent(this, CardViewActivity.class);
-		for (domain.Card card : list) {
+		for (Card card : list) {
             intent.putExtra("card_id", card.getId());
             intent.putExtra("card_name", card.getName());
 			intent.putExtra("card_description", card.getDescription());
@@ -128,8 +128,8 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 		}
 	}
 
-	private List<domain.Card> getSelectedCards() {
-		List<domain.Card> list = new ArrayList<domain.Card>();
+	private List<Card> getSelectedCards() {
+		List<Card> list = new ArrayList<Card>();
 		SparseBooleanArray checked = cardsListView.getCheckedItemPositions();
 		for (int i = 0; i < cardsListView.getCount(); i++) {
 			if (checked.get(i)) {

@@ -31,10 +31,6 @@ public class LoginActivity extends CommonActivity {
 
 	Crypto crypto = new Crypto();
 
-
-
-
-
 	@InjectView(R.id.email_editText)
 	EditText emailFieldText;
 

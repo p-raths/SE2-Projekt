@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import ch.hsr.se2.kartenverwaltung.R;
+import ch.hsr.se2.kartenverwaltung.domain.Card;
+import ch.hsr.se2.kartenverwaltung.domain.CardType;
+import ch.hsr.se2.kartenverwaltung.domain.User;
 import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
 import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
 import roboguice.inject.ContentView;
@@ -50,7 +53,7 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
         attributesListView = (ListView) findViewById(R.id.listView_card_add_attribute);
         saveButton.setOnClickListener(new CardSavelistener());
 
-        saveButton.setOnClickListener(new CardSavelistener());
+
         jsonHandler = new JsonRequestHandler(this);
 
 	}
@@ -73,12 +76,12 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
 		}
 	}
 
-	private domain.Card inputFieldsToCard() {
-        domain.Card card = new domain.Card(1, cardNameField.getText().toString(),
+	private Card inputFieldsToCard() {
+        Card card = new Card(1, cardNameField.getText().toString(),
                 cardDescriptionField.getText().toString(), 0,
-                new domain.CardType("CardTypeName","CardTypeDescription","Attribute"),
-                new domain.User());
-        Log.d("AddCard", "Id: " + card.getId() + " Name: " + card.getName()
+                new CardType("CardTypeName","CardTypeDescription","Attribute"),
+                new User());
+        Log.d("AddCard", " Name: " + card.getName()
                 + " Description: " + card.getDescription());
 
         return card;

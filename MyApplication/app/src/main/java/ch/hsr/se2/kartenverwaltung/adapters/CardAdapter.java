@@ -11,19 +11,20 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 
 import ch.hsr.se2.kartenverwaltung.R;
+import ch.hsr.se2.kartenverwaltung.domain.Card;
 
 /**
  * Created by roberto on 01.04.15. Necessary in order to show the cards items in the {@link ch.hsr.se2.kartenverwaltung.activities.OverviewActivity} class.
  */
-public class CardAdapter extends ArrayAdapter<domain.Card> {
+public class CardAdapter extends ArrayAdapter<Card> {
 
-	public CardAdapter(Context context, int textViewResourceId, ArrayList<domain.Card> cardList) {
+	public CardAdapter(Context context, int textViewResourceId, ArrayList<Card> cardList) {
 		super(context, textViewResourceId, cardList);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-        domain.Card receivedCard = getItem(position);
+        Card receivedCard = getItem(position);
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_card_detail, parent, false);
 		}

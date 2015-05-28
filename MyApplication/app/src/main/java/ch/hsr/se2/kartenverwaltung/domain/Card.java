@@ -1,4 +1,4 @@
-package domain;
+package ch.hsr.se2.kartenverwaltung.domain;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

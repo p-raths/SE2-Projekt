@@ -1,4 +1,4 @@
-package domain;
+package ch.hsr.se2.kartenverwaltung.domain;
 
 public class Location extends BaseObject {
 	private int locId;

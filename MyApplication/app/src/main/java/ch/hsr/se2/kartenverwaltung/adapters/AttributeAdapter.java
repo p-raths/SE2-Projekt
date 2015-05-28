@@ -11,7 +11,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 import ch.hsr.se2.kartenverwaltung.R;
-import domain.Attribute;
+import ch.hsr.se2.kartenverwaltung.domain.Attribute;
 
 /**
  * Created by Fehr on 14.05.2015.
@@ -24,7 +24,7 @@ public class AttributeAdapter extends ArrayAdapter<Attribute> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        domain.Attribute receivedAttribute = getItem(position);
+        Attribute receivedAttribute = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_attribute_detail, parent, false);
         }

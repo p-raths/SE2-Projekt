@@ -1,6 +1,5 @@
 package ch.hsr.se2.kartenverwaltung.services;
 
-import android.app.Activity;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -19,7 +18,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.hsr.se2.kartenverwaltung.activities.LoginActivity;
+import ch.hsr.se2.kartenverwaltung.domain.Card;
+import ch.hsr.se2.kartenverwaltung.domain.CardType;
+import ch.hsr.se2.kartenverwaltung.domain.User;
+
 
 /**
  * Created by Fehr on 09.04.2015.
@@ -29,7 +31,7 @@ public class JsonRequestHandler implements JsonEventInterface {
     public static final String TAG = JsonRequestHandler.class.getSimpleName();
 
     // json array response url
-    private final String URL_JSON_INSERT = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/PostCardInsertForm";
+    private final String URL_JSON_INSERT = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/PostCardInsert";
     private final String URL_JSON_DELETE = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/PostCardDelete";
     private final String URL_JSON_UPDATE = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/PostCardUpdate";
     private final String URL_JSON_POST = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/PostFeed";
@@ -37,33 +39,33 @@ public class JsonRequestHandler implements JsonEventInterface {
     private final String URL_JSON_LOGIN = "http://sinv-56072.edu.hsr.ch/restfulproject/WebService/Login";
 
 
-    private domain.Card postCard;
+    private Card postCard;
 
-    private ArrayList<domain.Card> getCardList;
+    private ArrayList<Card> getCardList;
 
     private JsonEventInterface jsonEvent;
 
     private Map<String, String> jsonAddParams;
     private Map<String, String> jsonLoginParams;
 
-    private domain.Card cardToMap;
+    private Card cardToMap;
 
     private String loginRespond = "";
 
 
     public JsonRequestHandler(JsonEventInterface event) {
-        getCardList = new ArrayList<domain.Card>();
+        getCardList = new ArrayList<Card>();
         jsonEvent = event;
     }
 
     public void jsonResponseFinished() {
     }
 
-    public ArrayList<domain.Card> jsonGetList() {
+    public ArrayList<Card> jsonGetList() {
         return getCardList;
     }
 
-    public void jsonAddCardMethod(domain.Card card) {
+    public void jsonAddCardMethod(Card card) {
         cardToMap = card;
 
         StringRequest req = new StringRequest(Request.Method.POST, URL_JSON_INSERT, new Response.Listener<String>() {
@@ -93,12 +95,12 @@ public class JsonRequestHandler implements JsonEventInterface {
         JsonServiceHandler.getInstance().addToRequestQueue(req);
     }
 
-    public void jsonDeleteCardMethod(domain.Card card) {
+    public void jsonDeleteCardMethod(Card card) {
         cardToMap = card;
         StringRequest req = new StringRequest(Request.Method.POST, URL_JSON_DELETE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("JSONPostMethod", response);
+                Log.d("JSONDeleteMethod", response);
                 jsonEvent.jsonResponseFinished();
             }
         }, new Response.ErrorListener() {
@@ -117,7 +119,7 @@ public class JsonRequestHandler implements JsonEventInterface {
         JsonServiceHandler.getInstance().addToRequestQueue(req);
     }
 
-    public boolean jsonUpdateCardMethod(domain.Card card) {
+    public boolean jsonUpdateCardMethod(Card card) {
         cardToMap = card;
 
         StringRequest req = new StringRequest(Request.Method.POST, URL_JSON_UPDATE, new Response.Listener<String>() {
@@ -163,7 +165,7 @@ public class JsonRequestHandler implements JsonEventInterface {
                         int id = card.getInt("id");
                         String name = card.getString("cardName");
                         String description = card.getString("cardDescription");
-                        getCardList.add(new domain.Card(name, description, 0, new domain.CardType("CardTypeName", "CardTypeDescription", "Attribute"), new domain.User()));
+                        getCardList.add(new Card(id, name, description, 0, new CardType("CardTypeName", "CardTypeDescription", "Attribute"), new User()));
                     }
                     Log.d("cardlist", getCardList.toString());
                     jsonEvent.jsonResponseFinished();
