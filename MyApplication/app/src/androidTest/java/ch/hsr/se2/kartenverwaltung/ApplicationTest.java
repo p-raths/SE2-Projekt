@@ -35,7 +35,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     static void addCardTest(){
-        Card card = new Card(0, "NewCard", "TestCard");
+       // Card card = new Card(0, "NewCard", "TestCard");
        // JsonRequestHandler jsonHandler = new JsonRequestHandler(this);
        // jsonHandler.jsonAddCardMethod(card);
 
