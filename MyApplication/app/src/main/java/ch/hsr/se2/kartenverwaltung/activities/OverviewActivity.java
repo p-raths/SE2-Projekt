@@ -46,6 +46,7 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 		cardsListView = (ListView) findViewById(R.id.listView_overview);
 
         jsonHandler = new JsonRequestHandler(this);
+        jsonHandler.jsonGetMethod();
 
 
 		cardsListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -61,14 +62,12 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
     public void jsonResponseFinished(){
        cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, jsonHandler.jsonGetList());
        cardsListView.setAdapter(cardAdapter);
-       this.cardAdapter.notifyDataSetChanged();
     }
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 
-        jsonHandler.jsonGetMethod();
         cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, jsonHandler.jsonGetList());
         cardsListView.setAdapter(cardAdapter);
         this.cardAdapter.notifyDataSetChanged();
