@@ -9,41 +9,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-
-import java.util.ArrayList;
 
 import ch.hsr.se2.kartenverwaltung.R;
-import ch.hsr.se2.kartenverwaltung.adapters.AttributeAdapter;
-import ch.hsr.se2.kartenverwaltung.domain.Attribute;
-import ch.hsr.se2.kartenverwaltung.domain.AttributeType;
 import ch.hsr.se2.kartenverwaltung.domain.Card;
 import ch.hsr.se2.kartenverwaltung.domain.CardType;
 import ch.hsr.se2.kartenverwaltung.domain.User;
 import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
 import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
-import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
-
 
 public class CardViewActivity extends ActionBarActivity implements JsonEventInterface {
 
     private int cardId;
 	private EditText cardName;
 	private EditText cardDescription;
-    private EditText cardAttributes;
     private Button saveButton;
     private Card parseCard;
-    private AttributeAdapter attributeAdapter;
-    private ArrayList<Attribute> attributeList;
-    private ListView attributeListView;
 
     private static String TAG = CardViewActivity.class.getSimpleName();
 
-    // Initalize request handler to get json data
     private JsonRequestHandler jsonHandler;
-
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +51,6 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
                 bundle.getString("card_description"), 0, new CardType("CardTypeName",
                         "CardTypeDescription","Attribute"), new User());
 	}
-
-    public void jsonResponseFinished(){
-    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -103,8 +84,10 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
 		}
 	}
 
-    private class CardSavelistener implements View.OnClickListener {
+    public void jsonResponseFinished(){
+    }
 
+    private class CardSavelistener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             jsonHandler.jsonUpdateCardMethod(inputFieldsToCard(cardName.getText().toString(),

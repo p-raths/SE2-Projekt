@@ -21,20 +21,11 @@ import ch.hsr.se2.kartenverwaltung.domain.Card;
 import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
 import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
 
-/*
- *This activity shows a card list.
- */
 public class OverviewActivity extends ActionBarActivity implements JsonEventInterface {
 
 	private CardAdapter cardAdapter;
 	private ListView cardsListView;
-    private ArrayList<Card> cardList;
 
-
-    // tag for Log.d
-	private static String TAG = OverviewActivity.class.getSimpleName();
-
-    // Initalize request handler to get json data
     private JsonRequestHandler jsonHandler;
 
 	@Override
@@ -42,12 +33,10 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_overview);
 
-		cardList = new ArrayList<Card>();
 		cardsListView = (ListView) findViewById(R.id.listView_overview);
 
         jsonHandler = new JsonRequestHandler(this);
         jsonHandler.jsonGetMethod();
-
 
 		cardsListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		cardsListView.setItemsCanFocus(false);
@@ -67,11 +56,9 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 	@Override
 	protected void onResume() {
 		super.onResume();
-
         cardAdapter = new CardAdapter(this, R.layout.activity_card_detail, jsonHandler.jsonGetList());
         cardsListView.setAdapter(cardAdapter);
         this.cardAdapter.notifyDataSetChanged();
-
 	}
 
 	@Override
@@ -109,7 +96,6 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
 		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		i.putExtra("EXIT", true);
 		startActivity(i);
-
 	}
 
 	private void startAddActivity() {
@@ -123,13 +109,12 @@ public class OverviewActivity extends ActionBarActivity implements JsonEventInte
             intent.putExtra("card_id", card.getId());
             intent.putExtra("card_name", card.getName());
 			intent.putExtra("card_description", card.getDescription());
-
 			startActivity(intent);
 		}
 	}
 
 	private List<Card> getSelectedCards() {
-		List<Card> list = new ArrayList<Card>();
+		List<Card> list = new ArrayList<>();
 		SparseBooleanArray checked = cardsListView.getCheckedItemPositions();
 		for (int i = 0; i < cardsListView.getCount(); i++) {
 			if (checked.get(i)) {

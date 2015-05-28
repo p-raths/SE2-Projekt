@@ -13,5 +13,4 @@ public abstract class CommonActivity extends RoboActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return false;
 	}
-
 }

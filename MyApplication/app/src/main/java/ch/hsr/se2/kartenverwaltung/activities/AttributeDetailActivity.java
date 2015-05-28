@@ -16,6 +16,6 @@ public class AttributeDetailActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Do nothing at the moment
+        // Not implemented
     }
 }

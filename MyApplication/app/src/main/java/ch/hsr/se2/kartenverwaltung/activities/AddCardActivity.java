@@ -17,9 +17,6 @@ import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
-/*
- * This activity shows the card details
- */
 @ContentView(R.layout.activity_add_card)
 
 public class AddCardActivity extends CommonActivity implements JsonEventInterface{
@@ -53,9 +50,7 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
         attributesListView = (ListView) findViewById(R.id.listView_card_add_attribute);
         saveButton.setOnClickListener(new CardSavelistener());
 
-
         jsonHandler = new JsonRequestHandler(this);
-
 	}
 
     public void jsonResponseFinished(){
@@ -67,7 +62,6 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
 	}
 
 	private class CardSavelistener implements OnClickListener {
-
 		@Override
 		public void onClick(View view) {
             jsonHandler.jsonAddCardMethod(inputFieldsToCard());
@@ -83,9 +77,7 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
                 new User());
         Log.d("AddCard", " Name: " + card.getName()
                 + " Description: " + card.getDescription());
-
         return card;
     }
-
 }
 
