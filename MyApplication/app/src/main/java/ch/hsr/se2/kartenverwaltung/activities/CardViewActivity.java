@@ -120,6 +120,7 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
     private void createOverViewActivity() {
         Intent intent = new Intent(this, OverviewActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private Card inputFieldsToCard(String name, String description) {

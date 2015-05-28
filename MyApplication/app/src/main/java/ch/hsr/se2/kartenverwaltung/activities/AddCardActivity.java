@@ -71,8 +71,8 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
 		@Override
 		public void onClick(View view) {
             jsonHandler.jsonAddCardMethod(inputFieldsToCard());
-
 			createOverViewActivity();
+            finish();
 		}
 	}
 
