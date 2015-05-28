@@ -1,95 +1,145 @@
-package ch.hsr.se2.kartenverwaltung.domain;
+package domain;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-/**
- * Created by roberto on 29.03.15.
- */
-public class Card {
-	private int cardId;
+public class Card extends BaseObject {
+	private int id;
 	private String cardName;
-	private String description;
-    private String cardAttributes;
-    private Date creationDate;
-    private HashMap<Integer, Attribute> cardAttributesMap;
-	private HashMap<Integer, Location> locationHashMap;
-    private int cardRevision;
+	private String cardDescription;
+	private int cardRevision;
+	private CardType cardType;
+	private User user;
+	private ArrayList<Attribute> attributes;
 
-	public Card(final int id, final String name, final String description) {
-		this.cardId = id;
-        this.cardName = name;
-		this.description = description;
-		this.creationDate = new Date();
-        this.cardAttributes = "";
-		this.cardAttributesMap = new HashMap<>();
-		this.locationHashMap = new HashMap<>();
-	    this.cardRevision = 1;
-    }
-
-	public void setCardId(final int id) {
-		this.cardId = id;
+	public Card() {
+		setId(0);
+		this.setAttributes(new ArrayList<Attribute>());
 	}
 
-    public void setCardName(final String name) {
-        this.cardName = name;
-    }
-
-    public void setCardDescription(final String description) {
-        this.description = description;
-    }
-
-	public void setAttribut(final Attribute newAttribut) {
-		this.cardAttributesMap.put(newAttribut.getId(), newAttribut);
+	public Card(String name, String description, int revision,
+			CardType cardType, User user) {
+		this.setId(0);
+		this.setName(name);
+		this.setDescription(description);
+		this.setRevision(revision);
+		this.setCardType(cardType);
+		this.setUser(user);
+		this.setAttributes(new ArrayList<Attribute>());
 	}
 
-    public void setCardRevision(final int revision){
-        this.cardRevision = revision;
-    }
-
-	public Integer getCardId() {
-		return this.cardId;
+	public Card(int id, String name, String description, int revision,
+			CardType cardType, User user) {
+		this.setId(id);
+		this.setName(name);
+		this.setDescription(description);
+		this.setRevision(revision);
+		this.setCardType(cardType);
+		this.setUser(user);
+		this.setAttributes(new ArrayList<Attribute>());
 	}
 
-	public Collection<Attribute> getAllAttributes() {
-
-		return this.cardAttributesMap.values();
+	public Card(ResultSet resultSet) {
+		try {
+			this.setId(resultSet.getInt("CardId"));
+			this.setName(resultSet.getString("CardName"));
+			this.setDescription(resultSet.getString("CardDescription"));
+			CardType cardType = new CardType();
+			cardType.setId(resultSet.getInt("CatId"));
+			this.setCardType(cardType);
+			User user = new User();
+			user.setId(resultSet.getInt("UsrId"));
+			this.setUser(user);
+			this.setAttributes(new ArrayList<Attribute>());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public String getAttribut() {
-
-		return this.cardAttributes;
+	public int getId() {
+		return id;
 	}
 
-	public Collection<Location> getAllPositions() {
-		return this.locationHashMap.values();
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public void addPosition(final Location location) {
-		this.locationHashMap.put(location.getLocationId(), location);
-	}
-
-	public Location getLocation(final int locationId) {
-
-		return this.locationHashMap.get(locationId);
-	}
-
-	public String getCardName() {
-
+	public String getName() {
 		return cardName;
 	}
 
+	public void setName(String name) {
+		this.cardName = name;
+	}
+
 	public String getDescription() {
-
-		return description;
+		return cardDescription;
 	}
 
-	public Date getCreationDate() {
-		return creationDate;
+	public void setDescription(String cardDescription) {
+		this.cardDescription = cardDescription;
 	}
 
-    public int getRevision(){
-        return cardRevision;
-    }
+	public CardType getCardType() {
+		return cardType;
+	}
+
+	public void setCardType(CardType cardType) {
+		this.cardType = cardType;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public boolean equals(Card other) {
+		if (this.getId() == 0) {
+			if (this.getName().equals(other.getName())
+					&& this.getDescription().equals(other.getDescription())
+					&& this.getRevision() == other.getRevision()
+					&& this.getCardType().getId() == other.getCardType()
+							.getId()
+					&& this.getUser().getId() == other.getUser().getId()) {
+				return true;
+			}
+		} else if (this.getId() == other.getId()) {
+			return true;
+		}
+		return false;
+	}
+
+	public int getRevision() {
+		return cardRevision;
+	}
+
+	public void setRevision(int cardRevision) {
+		this.cardRevision = cardRevision;
+	}
+
+	@Override
+	public boolean hasId() {
+		if (this.getId() == 0)
+			return false;
+		return true;
+	}
+
+	@Override
+	public boolean hasAttributes() {
+		if ("".equals(this.getName()) && "".equals(this.getDescription()))
+			return false;
+		return true;
+	}
+
+	public ArrayList<Attribute> getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(ArrayList<Attribute> attributes) {
+		this.attributes = attributes;
+	}
 }

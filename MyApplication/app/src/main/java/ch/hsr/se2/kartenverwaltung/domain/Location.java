@@ -1,31 +1,74 @@
-package ch.hsr.se2.kartenverwaltung.domain;
+package domain;
 
-/**
- * Created by roberto on 29.03.15.
- */
-public class Location {
-    private int locationId;
-    private Position position;
-    private int numberOfVisits;
+public class Location extends BaseObject {
+	private int locId;
+	private String locPosition;
+	private int locNumberOfVisits;
+	private Card card;
 
-    public Location(final Position position, final int numberOfVisits) {
-        this.position = position;
-        this.numberOfVisits = numberOfVisits;
-    }
+	public Location() {
+		this.setId(0);
+		this.setNumberOfVisits(0);
+	}
 
-    public int getLocationId() {
-        return this.locationId;
-    }
+	public Location(String position, Card id) {
+		this.setPosition(position);
+		this.setCard(id);
+	}
 
-    public void setLocationId(final int locationId) {
-        this.locationId = locationId;
-    }
+	public Location(int id, String position, Card card) {
+		this.setId(id);
+		this.setPosition(position);
+		this.setCard(card);
+	}
 
-    public Position getPosition() {
-        return this.position;
-    }
+	public int getId() {
+		return locId;
+	}
 
-    public int getNumberOfVisits() {
-        return this.numberOfVisits;
-    }
+	public void setId(int id) {
+		this.locId = id;
+	}
+
+	public String getPosition() {
+		return locPosition;
+	}
+
+	public void setPosition(String position) {
+		this.locPosition = position;
+	}
+
+	public int getNumberOfVisits() {
+		return locNumberOfVisits;
+	}
+
+	public void setNumberOfVisits(int numberOfVisits) {
+		this.locNumberOfVisits = numberOfVisits;
+	}
+
+	public void incrementNumberOfVisits() {
+		this.locNumberOfVisits++;
+	}
+
+	public Card getCard() {
+		return card;
+	}
+
+	public void setCard(Card card) {
+		this.card = card;
+	}
+
+	@Override
+	public boolean hasId() {
+		if (this.getId() == 0)
+			return false;
+		return true;
+	}
+
+	@Override
+	public boolean hasAttributes() {
+		if ("".equals(this.getPosition()))
+			return false;
+		return true;
+	}
 }

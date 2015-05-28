@@ -9,19 +9,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import ch.hsr.se2.kartenverwaltung.R;
 import ch.hsr.se2.kartenverwaltung.adapters.AttributeAdapter;
-import ch.hsr.se2.kartenverwaltung.domain.Attribute;
-import ch.hsr.se2.kartenverwaltung.domain.Card;
-import ch.hsr.se2.kartenverwaltung.data.CardDataSource;
 import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
 import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
+import domain.Attribute;
+import domain.AttributeType;
+import domain.Card;
+import domain.CardType;
+import domain.User;
 
 public class CardViewActivity extends ActionBarActivity implements JsonEventInterface {
 
@@ -29,17 +28,15 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
 	private EditText cardName;
 	private EditText cardDescription;
     private EditText cardAttributes;
-    private Card parseCard;
+    private domain.Card parseCard;
     private AttributeAdapter attributeAdapter;
-    private ArrayList<Attribute> attributeList;
+    private ArrayList<domain.Attribute> attributeList;
     private ListView attributeListView;
 
     private static String TAG = CardViewActivity.class.getSimpleName();
 
     // Initalize request handler to get json data
     private JsonRequestHandler jsonHandler;
-
-    private CardDataSource datasource;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +53,13 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
 
         jsonHandler = new JsonRequestHandler(this);
 
-        parseCard = new Card(bundle.getInt("card_id"), bundle.getString("card_name"), bundle.getString("card_description") );
+        parseCard = new Card(bundle.getInt("card_id"), bundle.getString("card_name"),
+                bundle.getString("card_description"), 0, new CardType("CardTypeName",
+                        "CardTypeDescription","Attribute"), new User());
 
         attributeList = new ArrayList<Attribute>();
-        attributeList.add(0, new Attribute("testName1", "testValue1"));
-        attributeList.add(1, new Attribute("testName2", "testValue2"));
+        attributeList.add(0, new Attribute("attribute1", "value", new AttributeType("AttributeTypeName",5,1), parseCard));
+        attributeList.add(1, new Attribute("attribute1", "value", new AttributeType("AttributeTypeName",5,1), parseCard));
         attributeAdapter = new AttributeAdapter(this, R.layout.activity_card_view, attributeList);
 
         attributeListView = (ListView) findViewById(R.id.listView_card_view_attribute);
@@ -116,9 +115,10 @@ public class CardViewActivity extends ActionBarActivity implements JsonEventInte
     }
 
     private Card inputFieldsToCard() {
-        Card card = new Card(cardId, "", "");
-        card.setAttribut(new Attribute("",""));
-        Log.d("AddCardActivitygetP", "Id: " + cardId + " Name: " + "" + " Description: " + "");
+        domain.Card card = new domain.Card(cardId, "", "", 0,
+             new domain.CardType("CardTypeName","CardTypeDescription","Attribute"),
+                new domain.User());
+        Log.d("DeleteCard", "Id: " + cardId + " Name: " + "" + " Description: " + "");
         return card;
     }
 }

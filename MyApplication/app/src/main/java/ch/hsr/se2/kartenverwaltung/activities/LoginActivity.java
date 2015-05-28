@@ -32,14 +32,8 @@ public class LoginActivity extends CommonActivity {
 	Crypto crypto = new Crypto();
 
 
-	JsonEventInterface jsonInterface = new JsonEventInterface() {
-		@Override
-		public void jsonResponseFinished() {
 
-		}
-	} ;
 
-	private JsonRequestHandler jsonHandler = new JsonRequestHandler(jsonInterface);
 
 	@InjectView(R.id.email_editText)
 	EditText emailFieldText;
@@ -79,14 +73,13 @@ public class LoginActivity extends CommonActivity {
 
 
 
-		jsonHandler.jsonLoginMethod(jsonParams, this, email);
 
 		Intent intent = new Intent(this, OverviewActivity.class);
 		startActivity(intent);
 
 	}
 
-	public void loginMethod(String response, String user){
+/*	public void loginMethod(String response, String user){
 
 		if (!response.equals("Login-Failed")){
 			Log.d("Login", "Successfull");
@@ -104,5 +97,5 @@ public class LoginActivity extends CommonActivity {
 		}
 
 	}
-
+*/
 }

@@ -1,53 +1,91 @@
-package ch.hsr.se2.kartenverwaltung.domain;
+package domain;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-/**
- * Created by roberto on 29.03.15.
- */
-public class CardType {
-    private String typeName;
-    private String typeDescription;
-    private HashMap<Integer, Card> cardMap;
-    private HashMap<Integer, Attribute> defaultAttributesMap;
+public class CardType extends BaseObject {
+	private int catId;
+	private String catName;
+	private String catDescription;
+	private String catDefaultAttributes;
 
-    public CardType(final String typeName, final String typeDescription) {
-        this.typeName = typeName;
-        this.typeDescription = typeDescription;
-        this.cardMap = new HashMap<>();
-        this.defaultAttributesMap = new HashMap<>();
-    }
+	public CardType() {
+	}
 
-    public void addCard(final Card newCard) {
-        this.cardMap.put(newCard.getCardId(), newCard);
-    }
+	public CardType(int id, String name, String description,
+			String defaultAttributes) {
+		this.setId(id);
+		this.setName(name);
+		this.setDescription(description);
+		this.setDefaultAttributes(defaultAttributes);
+	}
 
-    public Collection<Card> getAllCards() {
-        return cardMap.values();
-    }
+	public CardType(String name, String description, String defaultAttributes) {
+		this.setId(0);
+		this.setName(name);
+		this.setDescription(description);
+		this.setDefaultAttributes(defaultAttributes);
+	}
 
-    public Card getCard(final int cardKey) {
-        return cardMap.get(cardKey);
-    }
+	public CardType(ResultSet resultSet) {
+		try {
+			if (resultSet.next()) {
+				this.setId(resultSet.getInt("CatId"));
+				this.setName(resultSet.getString("CatName"));
+				this.setDescription(resultSet.getString("CatDescription"));
+				this.setDefaultAttributes(resultSet
+						.getString("CatDefaultAttributes"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-    public void addDefaultAttribute(final Attribute attribute) {
-        this.defaultAttributesMap.put(attribute.getId(), attribute);
-    }
+	public int getId() {
+		return catId;
+	}
 
-    public Attribute getDefaultAttribute(final int attributeKey) {
-        return this.defaultAttributesMap.get(attributeKey);
-    }
+	public void setId(int id) {
+		this.catId = id;
+	}
 
-    public Collection<Attribute> getAllDefaultAttributes() {
-        return this.defaultAttributesMap.values();
-    }
+	public String getName() {
+		return catName;
+	}
 
-    public String getTypeName() {
-        return typeName;
-    }
+	public void setName(String name) {
+		this.catName = name;
+	}
 
-    public String getTypeDescription() {
-        return typeDescription;
-    }
+	public String getDescription() {
+		return catDescription;
+	}
+
+	public void setDescription(String description) {
+		this.catDescription = description;
+	}
+
+	public String getDefaultAttributes() {
+		return catDefaultAttributes;
+	}
+
+	public void setDefaultAttributes(String defaultAttributes) {
+		this.catDefaultAttributes = defaultAttributes;
+	}
+
+	@Override
+	public boolean hasId() {
+		if (this.getId() == 0)
+			return false;
+		return true;
+	}
+
+	@Override
+	public boolean hasAttributes() {
+		if ("".equals(this.getName()) && "".equals(this.getDescription())
+				&& "".equals(this.getDefaultAttributes()))
+			return false;
+		return true;
+	}
+
 }

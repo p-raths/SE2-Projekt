@@ -3,18 +3,12 @@ package ch.hsr.se2.kartenverwaltung.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import ch.hsr.se2.kartenverwaltung.R;
-import ch.hsr.se2.kartenverwaltung.domain.Card;
-import ch.hsr.se2.kartenverwaltung.data.CardDataSource;
 import ch.hsr.se2.kartenverwaltung.services.JsonEventInterface;
 import ch.hsr.se2.kartenverwaltung.services.JsonRequestHandler;
 import roboguice.inject.ContentView;
@@ -75,15 +69,18 @@ public class AddCardActivity extends CommonActivity implements JsonEventInterfac
 		public void onClick(View view) {
             jsonHandler.jsonAddCardMethod(inputFieldsToCard());
 
-//            datasource.createCard(inputFieldsToCard());
-//            datasource.close();
 			createOverViewActivity();
 		}
 	}
 
-	private Card inputFieldsToCard() {
-        Card card = new Card(0, cardNameField.getText().toString(), cardDescriptionField.getText().toString());
-        Log.d("AddCardActivitygetP", "Id: " + card.getCardId() + " Name: " + card.getCardName() + " Description: " + card.getDescription());
+	private domain.Card inputFieldsToCard() {
+        domain.Card card = new domain.Card(1, cardNameField.getText().toString(),
+                cardDescriptionField.getText().toString(), 0,
+                new domain.CardType("CardTypeName","CardTypeDescription","Attribute"),
+                new domain.User());
+        Log.d("AddCard", "Id: " + card.getId() + " Name: " + card.getName()
+                + " Description: " + card.getDescription());
+
         return card;
     }
 
